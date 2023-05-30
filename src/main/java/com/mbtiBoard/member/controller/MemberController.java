@@ -1,21 +1,22 @@
-package com.mbti.board.controller;
+package com.mbtiBoard.member.controller;
 
-import com.mbti.board.dto.MemberDTO;
-import com.mbti.board.service.MemberService;
+import com.mbtiBoard.member.dto.MemberDTO;
+import com.mbtiBoard.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")//공통 주소
 @RequiredArgsConstructor
 public class MemberController {
     private  final MemberService memberService;
+
+    //회원가입
     @GetMapping("/save")
     public String saveForm(){
         return "save";
@@ -32,6 +33,7 @@ public class MemberController {
         }
     }
 
+    //로그인
     @GetMapping("/login")
     public String loginForm() {
         return "login";
@@ -43,10 +45,65 @@ public class MemberController {
         boolean loginResult = memberService.login(memberDTO);
         if(loginResult){
             session.setAttribute("loginId",memberDTO.getMemberId());
-            return "index";
+            return "myPage";
         }else {
             return "login";
         }
+    }
+
+    //회원목록 리스트
+    @GetMapping("/list")
+    public String findAll(Model model){
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        model.addAttribute("memberList",memberDTOList);
+        return "memberList";
+    }
+    //회원 상세조회
+    // /member?id=
+    @GetMapping
+    public String findById(@RequestParam("id") String memberId, Model model){
+        MemberDTO memberDTO = memberService.findById(memberId);
+        model.addAttribute("member",memberDTO);
+        return "detail";
+    }
+
+    //회원삭제
+    // /member/delete?id=
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") String memberId){
+        memberService.delete(memberId);
+        return "redirect:/member/list"; //redirect방식은 jsp 이름이 아닌 url 주소값으로 줘야한다
+    }
+
+    //수정화면 요청
+    @GetMapping("/update")
+    public String updateForm(HttpSession session,Model model){
+        //세션에 저장된 나의 아이디 가져오기
+        String loginId = (String) session.getAttribute("loginId");
+        MemberDTO memberDTO= memberService.findByMemberId(loginId);
+        model.addAttribute("member", memberDTO);
+        return "update";
+    }
+
+    //회원 수정 처리
+    @PostMapping ("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO){
+        boolean result = memberService.update(memberDTO);
+        System.out.println("Controller memberDTO = " + memberDTO);
+        if(result){
+            return "redirect:/member?id=" + memberDTO.getMemberId();
+        }else {
+            return "index";
+        }
+    }
+
+
+    //아이디 중복체크
+    @PostMapping("/id-check")
+    public @ResponseBody String idCheck(@RequestParam("memberId") String memberId){
+        System.out.println("Idcheck_memberId = " + memberId);
+        String checkResult = memberService.idCheck(memberId);
+        return  checkResult; //String checkResult는 save.jsp ajax success: function(res) 의 res값으로 들어온다
     }
 }
 

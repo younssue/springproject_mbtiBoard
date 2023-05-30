@@ -1,10 +1,8 @@
-package com.mbti.board.dto;
+package com.mbtiBoard.member.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.Date;
 
 @Getter
 @Setter
