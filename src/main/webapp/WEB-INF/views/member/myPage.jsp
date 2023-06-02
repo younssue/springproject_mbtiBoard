@@ -1,16 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>main</title>
+    <link rel="stylesheet" href="/resources/css/myPage.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <body>
 <h2>${sessionScope.loginId} 님 환영합니다.</h2>
-<li><a href="/">Home</a></li>
+
+<button onclick="goHome()">Home</button>
 <button onclick="update()">내정보 수정하기</button>
 <button onclick="logout()">로그아웃</button>
 
-</body>
 <script>
+    const goHome = () => {
+        location.href = "/";
+    }
     const update = () => {
         location.href = "/member/update";
     }
@@ -18,4 +25,5 @@
         location.href = "/member/logout";
     }
 </script>
+</body>
 </html>

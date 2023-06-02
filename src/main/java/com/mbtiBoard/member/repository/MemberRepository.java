@@ -36,15 +36,18 @@ public class MemberRepository { //DB-mybatis 연결
         return sql.selectOne("Member.findById",memberId);
     }
 
+    //회원 삭제
     public void delete(String memberId) {
 
         sql.delete("Member.delete",memberId);
     }
 
+    //회원 수정할 회원 정보 불러오기
     public MemberDTO findByMemberId(String loginId) {
         return sql.selectOne("Member.findByMemberId", loginId);
     }
 
+    //회원 정보 수정
     public int update(MemberDTO memberDTO) {
         return sql.update("Member.update", memberDTO);
     }

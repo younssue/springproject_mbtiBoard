@@ -51,6 +51,16 @@ public class MemberController {
         }
     }
 
+    //로그아웃
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        System.out.println("test = " + 1101);
+        session.removeAttribute("loginId"); // "loginId" 속성 제거
+        System.out.println("loginId = " + session);
+        session.invalidate();
+        return "redirect:/";
+    }
+
     //회원목록 리스트
     @GetMapping("/list")
     public String findAll(Model model){

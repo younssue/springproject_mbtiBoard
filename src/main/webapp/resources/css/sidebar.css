@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+#sidebar {
+    width: 200px;
+    background-color: #ffffff; /* 하얀색 배경 */
+    padding: 10px;
+    height: 100vh; /* 화면 세로 크기와 동일 */
+    border-right: 1px solid #000000; /* 오른쪽에 검정색 선 추가 */
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: larger;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar li {
+    margin-bottom: 10px;
+}
+
+#sidebar li a {
+    display: block;
+    color: #000000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+#sidebar li a:hover {
+    background-color: #ddd;
+}
+
+.mbti-menu {
+    position: relative;
+}
+
+.mbti-menu .mbti-menu-title {
+    display: block;
+    color: #000000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.mbti-menu .mbti-menu-content {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    min-width: 160px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.mbti-menu .mbti-menu-content a {
+    display: block;
+    color: #000000;
+    padding: 12px 16px;
+    text-decoration: none;
+}
+
+.mbti-menu:hover .mbti-menu-content {
+    display: block;
+}
