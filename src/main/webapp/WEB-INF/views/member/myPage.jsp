@@ -5,6 +5,7 @@
 </head>
 <body>
 <h2>${sessionScope.loginId} 님 환영합니다.</h2>
+<li><a href="/">Home</a></li>
 <button onclick="update()">내정보 수정하기</button>
 <button onclick="logout()">로그아웃</button>
 

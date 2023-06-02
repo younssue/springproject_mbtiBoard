@@ -14,27 +14,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <title>MbtiBoard</title>
-    <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
+    <link rel="stylesheet" href="/resources/css/menu.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
+
 </head>
 <body>
 <div id="menu">
     <ul>
         <li id="logo">MbtiBoard</li>
-        <li><a href="<c:url value='/'/>">Home</a></li>
-        <li><a href="<c:url value='/board/list'/>">Board</a></li>
-        <li><a href="<c:url value='/member/login'/>">login</a></li>
-        <li><a href="<c:url value='/member/save'/>">Sign in</a></li>
-        <li><a href="<c:url value='/member/list'/>">memberList</a></li>
-        <li><a href=""><i class="fa fa-search"></i></a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/board/">Board</a></li>
+        <li><a href="/member/login">login</a></li>
+        <li><a href="/member/save">Sign in</a></li>
+        <li><a href="/member/list">memberList</a></li>
     </ul>
 </div>
 <div style="text-align:center">
     <h1>MBTI BOARD</h1>
-
 </div>
 </body>
 </html>

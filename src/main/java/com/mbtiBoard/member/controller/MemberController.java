@@ -19,7 +19,7 @@ public class MemberController {
     //회원가입
     @GetMapping("/save")
     public String saveForm(){
-        return "save";
+        return "member/memberSave";
     }
 
     @PostMapping("/save")
@@ -27,16 +27,16 @@ public class MemberController {
 
         int saveResult = memberService.save(memberDTO);
         if(saveResult>0){
-            return "login"; //가입성공: 회원가입이 되면 로그인 화면으로 이동
+            return "member/login"; //가입성공: 회원가입이 되면 로그인 화면으로 이동
         }else {
-            return "save"; //가입실패: 회원가입이 되지 않으면 다시 회원가입 페이지로 이동
+            return "member/memberSave"; //가입실패: 회원가입이 되지 않으면 다시 회원가입 페이지로 이동
         }
     }
 
     //로그인
     @GetMapping("/login")
     public String loginForm() {
-        return "login";
+        return "member/login";
     }
 
     @PostMapping("/login")
@@ -45,9 +45,9 @@ public class MemberController {
         boolean loginResult = memberService.login(memberDTO);
         if(loginResult){
             session.setAttribute("loginId",memberDTO.getMemberId());
-            return "myPage";
+            return "member/myPage";
         }else {
-            return "login";
+            return "member/login";
         }
     }
 
@@ -56,7 +56,7 @@ public class MemberController {
     public String findAll(Model model){
         List<MemberDTO> memberDTOList = memberService.findAll();
         model.addAttribute("memberList",memberDTOList);
-        return "memberList";
+        return "member/memberList";
     }
     //회원 상세조회
     // /member?id=
@@ -64,7 +64,7 @@ public class MemberController {
     public String findById(@RequestParam("id") String memberId, Model model){
         MemberDTO memberDTO = memberService.findById(memberId);
         model.addAttribute("member",memberDTO);
-        return "detail";
+        return "member/memberDetail";
     }
 
     //회원삭제
@@ -82,7 +82,7 @@ public class MemberController {
         String loginId = (String) session.getAttribute("loginId");
         MemberDTO memberDTO= memberService.findByMemberId(loginId);
         model.addAttribute("member", memberDTO);
-        return "update";
+        return "member/memberUpdate";
     }
 
     //회원 수정 처리
@@ -93,7 +93,7 @@ public class MemberController {
         if(result){
             return "redirect:/member?id=" + memberDTO.getMemberId();
         }else {
-            return "index";
+            return "mainIndex";
         }
     }
 
@@ -103,7 +103,7 @@ public class MemberController {
     public @ResponseBody String idCheck(@RequestParam("memberId") String memberId){
         System.out.println("Idcheck_memberId = " + memberId);
         String checkResult = memberService.idCheck(memberId);
-        return  checkResult; //String checkResult는 save.jsp ajax success: function(res) 의 res값으로 들어온다
+        return  checkResult; //String checkResult는 memberSave.jsp ajax success: function(res) 의 res값으로 들어온다
     }
 }
 
