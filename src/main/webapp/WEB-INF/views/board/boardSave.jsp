@@ -57,7 +57,7 @@
 </head>
 <body>
 <form action="/board/save" method="post">
-    <input type="text" name="boardId" placeholder="작성자">
+<%--    <input type="text" name="boardId" placeholder="작성자">--%>
     <label for="">MBTI 게시판 선택</label>
     <select name="boardMbti">
         <optgroup label="MBTI 선택">

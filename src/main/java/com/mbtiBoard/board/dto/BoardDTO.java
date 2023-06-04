@@ -19,6 +19,7 @@ public class BoardDTO {
     private int boardHits;
     private Timestamp boardCreatedTime;
     private String boardMbti;
+    private Integer bno;
 
 
 }

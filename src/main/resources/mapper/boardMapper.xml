@@ -6,4 +6,8 @@
         insert into board_info(boardId,boardTitle,boardContents,boardMbti)
         values (#{boardId},#{boardTitle},#{boardContents},#{boardMbti})
     </insert>
+
+    <select id="findAll" resultType="board" >
+        select * from board_info
+    </select>
 </mapper>

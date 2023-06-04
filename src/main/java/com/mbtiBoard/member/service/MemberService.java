@@ -29,16 +29,19 @@ public class MemberService {
 
     //회원목록 조회
     public List<MemberDTO> findAll() {
+
         return memberRepository.findAll();
     }
 
     //회원상세조회
     public MemberDTO findById(String memberId) {
+
         return memberRepository.findById(memberId);
     }
 
     //회원삭제
     public void delete(String memberId) {
+
         memberRepository.delete(memberId);
     }
 

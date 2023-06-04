@@ -20,19 +20,16 @@ public class MemberRepository { //DB-mybatis 연결
 
     //로그인
     public MemberDTO login(MemberDTO memberDTO) {
-
         return sql.selectOne("Member.login",memberDTO);
     }
 
     //회원목록리스트
     public List<MemberDTO> findAll() {
-
         return sql.selectList("Member.findAll");
     }
 
     //회원상세조회
     public MemberDTO findById(String memberId) {
-
         return sql.selectOne("Member.findById",memberId);
     }
 
