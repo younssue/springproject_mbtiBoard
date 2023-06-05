@@ -38,6 +38,10 @@
     </style>
 </head>
 <body>
+<h2>전체 게시글</h2>
+<c:if test="${sessionScope.loginId != null}">
+    <button onclick="save()" type="button" id="btnWrite">글 작성</button>
+</c:if>
 <table>
     <tr>
         <th>ID</th>
@@ -58,5 +62,10 @@
         </tr>
     </c:forEach>
 </table>
+<script>
+    const save = () => {
+        location.href = "/board/save";
+    }
+</script>
 </body>
 </html>

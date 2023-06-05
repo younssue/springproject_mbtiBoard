@@ -12,8 +12,6 @@ import java.sql.Timestamp;
 public class BoardDTO {
     //private String boardId; -> memberDTO memberId
     private String boardId;
-    //private String boardWriter; // 작성자-> memberName 가져와야하나?
-    //private String boardPass;
     private String boardTitle;
     private String boardContents;
     private int boardHits;

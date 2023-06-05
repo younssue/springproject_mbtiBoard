@@ -11,10 +11,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardRepository {
     private final SqlSessionTemplate sql;
+    // 글 작성
     public int boardSave(BoardDTO boardDTO){
         return sql.insert("Board.boardSave", boardDTO);
     }
 
+    //글 목록 불러오기
     public List<BoardDTO> findAll() {
         return sql.selectList("Board.findAll");
     }

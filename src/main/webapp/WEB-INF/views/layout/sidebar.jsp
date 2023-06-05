@@ -2,11 +2,12 @@
 <link rel="stylesheet" href="/resources/css/sidebar.css">
 <div id="sidebar">
     <ul>
+        <%--글목록 에서 글작성 버튼으로 들어가기--%>
+        <%--<li><a href="/board/save">글작성</a></li>--%>
         <%--boardList 불러오기 완성하면 수정하기--%>
-        <li><a href="/board/save">글작성</a></li>
-        <li><a href="/board/list">전체글목록</a></li>
+        <li><a href="/board/list">전체글보기</a></li>
         <li class="mbti-menu">
-            <a href="#" class="mbti-menu-title">MBTI</a>
+            <a href="#" class="mbti-menu-title">MBTI별 글 보기</a>
             <div class="mbti-menu-content">
                 <a href="#">ISTJ</a>
                 <a href="#">ISTP</a>

@@ -11,10 +11,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
     private  final BoardRepository boardRepository;
+    //글 작성
     public int boardSave(BoardDTO boardDTO) {
         return boardRepository.boardSave(boardDTO);
     }
 
+    //글 목록 불러오기
     public List<BoardDTO> findAll() {
         return boardRepository.findAll();
     }
