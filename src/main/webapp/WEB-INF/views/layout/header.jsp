@@ -5,7 +5,7 @@
 <div id="menu">
     <ul>
         <li><a href="/">MbtiBoard</a></li>
-        <li><a href="/board/">Board</a></li>
+        <li><a href="/board/list">Board</a></li>
         <li><a href="/member/login">Login</a></li>
         <li><a href="/member/save">Sign in</a></li>
         <li><a href="/member/list">Member List</a></li>

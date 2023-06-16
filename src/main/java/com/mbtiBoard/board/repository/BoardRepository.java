@@ -20,4 +20,8 @@ public class BoardRepository {
     public List<BoardDTO> findAll() {
         return sql.selectList("Board.findAll");
     }
+
+    public BoardDTO findByBno(Integer bno) {
+        return sql.selectOne("Board.findByBno", bno);
+    }
 }

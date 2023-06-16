@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -18,10 +17,10 @@ public class BoardController {
     private final BoardService boardService;
 
     //게시판 글작성
-    @GetMapping("/")
+/*    @GetMapping("/list")
     public String boardIndex(){
-        return "board/boardIndex";
-    }
+        return "board/boardList4";
+    }*/
     @GetMapping("/save")
     public  String boardSaveForm(){
         return "board/boardSave";
@@ -35,7 +34,7 @@ public class BoardController {
 
         int boardSaveResult = boardService.boardSave(boardDTO);
         if(boardSaveResult > 0){
-            return "redirect:/board/";
+            return "redirect:/board/list";
         }else{
             return "board/boardSave";
         }
@@ -47,5 +46,14 @@ public class BoardController {
         List<BoardDTO> boardDTOList = boardService.findAll();
         model.addAttribute("boardList",boardDTOList);
         return "board/boardList";
+    }
+    //글 상세조회
+    @GetMapping
+    public String findByBno(@RequestParam("bno") Integer bno, Model model ){
+        System.out.println("boardId = " + bno);
+        BoardDTO boardDTO = boardService.findByBno(bno);
+        model.addAttribute("board",boardDTO);
+        return "board/boardListDetail";
+
     }
 }

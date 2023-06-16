@@ -20,4 +20,9 @@ public class BoardService {
     public List<BoardDTO> findAll() {
         return boardRepository.findAll();
     }
+
+    //상세글
+    public BoardDTO findByBno(Integer bno) {
+        return boardRepository.findByBno(bno);
+    }
 }

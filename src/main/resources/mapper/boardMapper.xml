@@ -10,4 +10,8 @@
     <select id="findAll" resultType="board" >
         select * from board_info
     </select>
+
+    <select id="findByBno" parameterType="Integer" resultType="board">
+        select * from board_info where bno = #{bno}
+    </select>
 </mapper>
