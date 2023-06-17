@@ -44,16 +44,20 @@ public class BoardController {
     @GetMapping("/list")
     public String findAll(Model model){
         List<BoardDTO> boardDTOList = boardService.findAll();
+        // 글 목록에 대한 조회수 업데이트
         model.addAttribute("boardList",boardDTOList);
         return "board/boardList";
     }
     //글 상세조회
     @GetMapping
     public String findByBno(@RequestParam("bno") Integer bno, Model model ){
-        System.out.println("boardId = " + bno);
+        System.out.println("boardBno = " + bno);
+        boardService.updateHits(bno);
         BoardDTO boardDTO = boardService.findByBno(bno);
         model.addAttribute("board",boardDTO);
         return "board/boardListDetail";
 
     }
+
+
 }

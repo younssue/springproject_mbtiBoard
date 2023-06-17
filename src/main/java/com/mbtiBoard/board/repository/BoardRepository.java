@@ -24,4 +24,8 @@ public class BoardRepository {
     public BoardDTO findByBno(Integer bno) {
         return sql.selectOne("Board.findByBno", bno);
     }
+
+    public void updateHits(Integer bno) {
+        sql.update("Board.updateHits", bno);
+    }
 }

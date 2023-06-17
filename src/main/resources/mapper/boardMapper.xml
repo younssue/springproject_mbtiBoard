@@ -14,4 +14,8 @@
     <select id="findByBno" parameterType="Integer" resultType="board">
         select * from board_info where bno = #{bno}
     </select>
+
+    <update id="updateHits" parameterType="Integer">
+        update board_info set boardHits = boardHits + 1 where bno = #{bno}
+    </update>
 </mapper>

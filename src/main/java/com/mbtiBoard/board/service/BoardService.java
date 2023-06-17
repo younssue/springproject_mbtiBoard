@@ -25,4 +25,8 @@ public class BoardService {
     public BoardDTO findByBno(Integer bno) {
         return boardRepository.findByBno(bno);
     }
+
+    public void updateHits(Integer bno) {
+        boardRepository.updateHits(bno);
+    }
 }
