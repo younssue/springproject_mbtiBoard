@@ -44,7 +44,6 @@ public class BoardController {
     @GetMapping("/list")
     public String findAll(Model model){
         List<BoardDTO> boardDTOList = boardService.findAll();
-        // 글 목록에 대한 조회수 업데이트
         model.addAttribute("boardList",boardDTOList);
         return "board/boardList";
     }
@@ -52,11 +51,37 @@ public class BoardController {
     @GetMapping
     public String findByBno(@RequestParam("bno") Integer bno, Model model ){
         System.out.println("boardBno = " + bno);
+        //글 상세보기 클릭시 조회수 증가
         boardService.updateHits(bno);
         BoardDTO boardDTO = boardService.findByBno(bno);
+        System.out.println("boardDTO_상세보기 = " + boardDTO );
         model.addAttribute("board",boardDTO);
         return "board/boardListDetail";
 
+    }
+
+    //글 수정
+    @GetMapping("/update")
+    public String updateForm(@RequestParam("bno") Integer bno,Model model){
+        System.out.println("boardBno = " + bno);
+        BoardDTO boardDTO = boardService.findByBno(bno);
+        model.addAttribute("board", boardDTO);
+        return "board/boardUpdate";
+    }
+
+    @PostMapping("/update")
+    public String boardUpdate(@ModelAttribute BoardDTO boardDTO , Model model){
+        System.out.println("boardDTO1 = " + boardDTO );
+        boardService.boardUpdate(boardDTO);
+        System.out.println("boardDTO2 = " + boardDTO );
+        BoardDTO dto = boardService.findByBno(boardDTO.getBno());
+        System.out.println("bno="+ boardDTO.getBno());
+        System.out.println("dto="+ dto);
+        model.addAttribute("board" , dto);
+        return "board/boardListDetail";
+        //redirect를 할 경우 글 상세보기 메서드를 다시 실행하게 된다
+        //그렇게 되면 글 수정 후 다시 글 상세창으로 돌아갔을 때 조회수가 올라가게 된다
+        //return "redirect:/board?bno="+boardDTO.getBno();
     }
 
 

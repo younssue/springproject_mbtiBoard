@@ -26,7 +26,12 @@ public class BoardService {
         return boardRepository.findByBno(bno);
     }
 
+    //글 상세보기 클릭시 조회수 증가
     public void updateHits(Integer bno) {
         boardRepository.updateHits(bno);
+    }
+
+    public void boardUpdate(BoardDTO boardDTO) {
+        boardRepository.boardUpdate(boardDTO);
     }
 }

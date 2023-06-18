@@ -18,4 +18,9 @@
     <update id="updateHits" parameterType="Integer">
         update board_info set boardHits = boardHits + 1 where bno = #{bno}
     </update>
+
+    <update id="boardUpdate" parameterType="board">
+        update board_info set boardMbti = #{boardMbti},boardTitle =#{boardTitle}, boardContents =#{boardContents}
+        where bno = #{bno}
+    </update>
 </mapper>

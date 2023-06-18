@@ -42,12 +42,12 @@
         location.href = "/board/list"
     }
     const updateFn = () => {
-        const id = '${board.boardId}';
-        location.href = "/board/update?id=" + id;
+        const bno = '${board.bno}';
+        location.href = "/board/update?bno=" + bno;
     }
     const deleteFn = () => {
-        const id = '${board.boardId}';
-        location.href = "/board/delete?id=" + id;
+        const bno = '${board.bno}';
+        location.href = "/board/delete?bno=" + bno;
     }
 </script>
 </html>

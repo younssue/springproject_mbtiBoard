@@ -21,11 +21,17 @@ public class BoardRepository {
         return sql.selectList("Board.findAll");
     }
 
+    //글 상세 보기
     public BoardDTO findByBno(Integer bno) {
         return sql.selectOne("Board.findByBno", bno);
     }
 
+    //글 상세보기 클릭시 조회수 증가
     public void updateHits(Integer bno) {
         sql.update("Board.updateHits", bno);
+    }
+
+    public void boardUpdate(BoardDTO boardDTO) {
+        sql.update("Board.boardUpdate", boardDTO);
     }
 }
