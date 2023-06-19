@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%--<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>--%>
 
 <html>
 <head>
@@ -171,7 +171,46 @@
            transition: background-color 0.3s ease;
        }
 
-        /* footer */
+       /* 페이지 */
+       .pagination {
+           display: flex;
+           justify-content: center;
+           margin-top: 1em;
+       }
+
+       .pagination span,
+       .pagination a {
+           font-size: 14px;
+           padding: 0.25em 0.5em;
+           margin: 0 0.25em;
+           text-decoration: none;
+           color: #333;
+           transition: color 0.3s ease;
+       }
+
+       .pagination a:hover {
+           background-color: #ccc;
+       }
+
+       .pagination span:first-child,
+       .pagination a:first-child {
+           margin-left: 0;
+       }
+
+       .pagination span:last-child,
+       .pagination a:last-child {
+           margin-right: 0;
+       }
+
+       .pagination .selected {
+           color: #FF0266;
+           font-weight: bold;
+       }
+
+
+
+
+       /* footer */
 
         footer {
             color: #333333;
@@ -245,7 +284,41 @@
                 </div>
             </div>
         </c:forEach>
+
+        <div class="pagination">
+            <c:choose>
+                <c:when test="${paging.page < 1}">
+                    <span class="selected"> < </span>
+                </c:when>
+                <c:otherwise>
+                    <a href="/board/list?page=${paging.page - 1}"> < </a>
+                </c:otherwise>
+            </c:choose>
+
+            <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
+                <c:choose>
+                    <c:when test="${i eq paging.page}">
+                        <span class="selected">${i}</span>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="/board/list?page=${i}">${i}</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+            <c:choose>
+                <c:when test="${paging.page > paging.maxPage}">
+                    <span class="selected"> > </span>
+                </c:when>
+                <c:otherwise>
+                    <a href="/board/list?page=${paging.page + 1}"> > </a>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
     </main>
+
+
 </div>
 <footer>
     footer

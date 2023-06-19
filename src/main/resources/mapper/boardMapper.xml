@@ -23,4 +23,16 @@
         update board_info set boardMbti = #{boardMbti},boardTitle =#{boardTitle}, boardContents =#{boardContents}
         where bno = #{bno}
     </update>
+
+    <delete id="boardDelete" parameterType="Integer">
+        delete from board_info where bno = #{bno}
+    </delete>
+
+    <select id="pagingList" parameterType="java.util.HashMap" resultType="board">
+        select * from board_info order by bno desc limit #{start},#{limit}
+    </select>
+
+    <select id="boardCount" resultType="Integer">
+        select count(bno) from board_info
+    </select>
 </mapper>

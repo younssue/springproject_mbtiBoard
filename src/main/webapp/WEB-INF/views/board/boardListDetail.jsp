@@ -47,7 +47,10 @@
     }
     const deleteFn = () => {
         const bno = '${board.bno}';
-        location.href = "/board/delete?bno=" + bno;
+        const confirmed = confirm("삭제하시겠습니까?");
+        if (confirmed) {
+            location.href = "/board/delete?bno=" + bno;
+        }
     }
 </script>
 </html>

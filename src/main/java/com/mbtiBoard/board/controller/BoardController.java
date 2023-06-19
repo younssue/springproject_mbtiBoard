@@ -1,6 +1,7 @@
 package com.mbtiBoard.board.controller;
 
 import com.mbtiBoard.board.dto.BoardDTO;
+import com.mbtiBoard.board.dto.PageDTO;
 import com.mbtiBoard.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -41,12 +42,12 @@ public class BoardController {
     }
 
     // 게시판 글 목록 출력
-    @GetMapping("/list")
-    public String findAll(Model model){
-        List<BoardDTO> boardDTOList = boardService.findAll();
-        model.addAttribute("boardList",boardDTOList);
-        return "board/boardList";
-    }
+//    @GetMapping("/list")
+//    public String findAll(Model model){
+//        List<BoardDTO> boardDTOList = boardService.findAll();
+//        model.addAttribute("boardList",boardDTOList);
+//        return "board/boardList";
+//    }
     //글 상세조회
     @GetMapping
     public String findByBno(@RequestParam("bno") Integer bno, Model model ){
@@ -54,7 +55,6 @@ public class BoardController {
         //글 상세보기 클릭시 조회수 증가
         boardService.updateHits(bno);
         BoardDTO boardDTO = boardService.findByBno(bno);
-        System.out.println("boardDTO_상세보기 = " + boardDTO );
         model.addAttribute("board",boardDTO);
         return "board/boardListDetail";
 
@@ -63,7 +63,6 @@ public class BoardController {
     //글 수정
     @GetMapping("/update")
     public String updateForm(@RequestParam("bno") Integer bno,Model model){
-        System.out.println("boardBno = " + bno);
         BoardDTO boardDTO = boardService.findByBno(bno);
         model.addAttribute("board", boardDTO);
         return "board/boardUpdate";
@@ -71,9 +70,7 @@ public class BoardController {
 
     @PostMapping("/update")
     public String boardUpdate(@ModelAttribute BoardDTO boardDTO , Model model){
-        System.out.println("boardDTO1 = " + boardDTO );
         boardService.boardUpdate(boardDTO);
-        System.out.println("boardDTO2 = " + boardDTO );
         BoardDTO dto = boardService.findByBno(boardDTO.getBno());
         System.out.println("bno="+ boardDTO.getBno());
         System.out.println("dto="+ dto);
@@ -84,5 +81,30 @@ public class BoardController {
         //return "redirect:/board?bno="+boardDTO.getBno();
     }
 
+    //글삭제
+    @GetMapping("/delete")
+    public String boardDelete(@RequestParam("bno") Integer bno){
+        System.out.println("bno = " + bno);
+        boardService.boardDelete(bno);
+        return "redirect:/board/list";
+    }
+
+    //페이징 처리 방법 배우기
+    //@RequestParam(value = "page", required = false , defaultValue = "1"
+    //board/paging?page=1
+    //page=1이 필수로 있어야 한다는 것은 아니다 (required = false)
+    //하지만 page=1 로 default값을 가진다 ( defaultValue = "1")
+    @GetMapping("/list")
+    public String paging (Model model,
+                          @RequestParam(value = "page", required = false , defaultValue = "1") int page){
+        System.out.println(" page = " + page);
+        //해당 페이지에서 보여줄 글 목록
+        List<BoardDTO> pagingList = boardService.pagingList(page);
+        System.out.println("pagingList="+pagingList);
+        PageDTO pageDTO = boardService.pagingParam(page);
+        model.addAttribute("boardList",pagingList);
+        model.addAttribute("paging", pageDTO);
+        return "board/boardList";
+    }
 
 }
