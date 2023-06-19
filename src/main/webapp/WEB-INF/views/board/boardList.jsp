@@ -9,7 +9,7 @@
 <%--    <link rel="stylesheet" href="resources/css/aside.css">--%>
     <style>
        * {
-            margin: 3px;
+            margin: 0px;
             box-sizing: border-box;
         }
 
@@ -83,48 +83,51 @@
 
 
         /* 사이드바 */
-        .left {
-            color: black;
-            background: white;
-            padding: 2em 0 2em 0;
-             /*flex: 1 1 100px; */
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
+       .left {
+           color: black;
+       /*margin: 20px 20px 20px 30px;
+       */
 
-        .left ul {
-            font-size: 15px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+           background: rgba(173, 244, 247, 0.48);
+           padding: 50px 50px 10px 50px;
+           /*flex: 1 1 100px; */
+           display: flex;
+           flex-direction: column;
+           align-items: flex-start;
+       }
 
-        .left ul li {
-            margin-bottom: 10px;
-        }
+       .left ul {
+           font-size:20px;
+           list-style: none;
+           padding: 0;
+           margin: 0;
+       }
 
-        .mbti-menu-title {
-            color: black;
-            font-size: 15px;
-            margin-bottom: 5px;
-        }
+       .left ul li {
+           margin-bottom: 10px;
+       }
 
-        .mbti-menu-content {
-            color: black;
-            font-size: 14px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 5px;
-        }
+       .mbti-menu-title {
+           color: black;
+           font-size: 20px;
+           margin-bottom: 5px;
+       }
 
-        .left a {
-            color: black;
-        }
+       .mbti-menu-content {
+           color: black;
+           font-size: 14px;
+           display: grid;
+           grid-template-columns: repeat(2, 1fr);
+           grid-gap: 5px;
+       }
 
-        .mbti-menu-content a {
-            color: black;
-        }
+       .left a {
+           color: black;
+       }
+
+       .mbti-menu-content a {
+           color: black;
+       }
 
 
 
@@ -276,7 +279,7 @@
         <c:forEach items="${boardList}" var="board">
             <div class="board-item">
                 <div class="board-title">
-                    <a href="/board?bno=${board.bno}">${board.boardTitle}</a>
+                    <a href="/board?bno=${board.bno}&page=${paging.page}">${board.boardTitle}</a>
                 </div>
                 <div class="board-details">
                     게시글 번호: ${board.bno} | 게시글 번호: ${board.boardMbti} | 작성자: ${board.boardId} | 조회수:

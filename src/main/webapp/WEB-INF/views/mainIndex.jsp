@@ -1,30 +1,284 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="layout/header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>--%>
+
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>MbtiBoard</title>
-    <link rel="stylesheet" href="/resources/css/mainBoardList.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
-</head>
-<body>
+    <title>Title</title>
+    <%--    <link rel="stylesheet" href="resources/css/header.css">--%>
+    <%--    <link rel="stylesheet" href="resources/css/aside.css">--%>
+    <style>
+        * {
+            margin: 0px;
+            box-sizing: border-box;
+        }
 
-<div class="container">
-    <h1>게시판</h1>
-    <div class="post">
-        <h2 class="post-title">게시글 제목</h2>
-        <p class="post-content">게시글 내용이 들어갑니다.</p>
-        <p class="post-date">작성일: 2023-06-02</p>
-    </div>
-    <div class="post">
-        <h2 class="post-title">게시글 제목</h2>
-        <p class="post-content">게시글 내용이 들어갑니다.</p>
-        <p class="post-date">작성일: 2023-06-01</p>
-    </div>
+        body {
+            height: 95vh;
+            background: white;
+            font-family: sans-serif;
+            /* text-align: center; */
+            color: white;
+
+            /*font-size: 24px;*/
+            display: flex;
+            flex-direction: column;
+
+        }
+
+
+        /*헤더*/
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #333;
+
+            padding: 30px 20px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: larger;
+        }
+        header h1 a{
+            color: white;
+        }
+
+        header nav {
+
+            display: flex;
+            align-items: center;
+        }
+
+        header nav ul {
+            color: #fff;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin-right: 10px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        header nav ul li a:hover {
+            color: #FF0266;
+        }
+
+
+
+        .main_body{
+            display: flex;
+            flex: 1;
+        }
+
+
+
+        /* 사이드바 */
+        .left {
+            color: black;
+            //margin: 20px 20px 20px 30px;
+            background: rgba(173, 244, 247, 0.48);
+            padding: 50px 50px 10px 50px;
+            /*flex: 1 1 100px; */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .left ul {
+            font-size:20px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .left ul li {
+            margin-bottom: 10px;
+        }
+
+        .mbti-menu-title {
+            color: black;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .mbti-menu-content {
+            color: black;
+            font-size: 14px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 5px;
+        }
+
+        .left a {
+            color: black;
+        }
+
+        .mbti-menu-content a {
+            color: black;
+        }
+
+
+
+
+
+        main {
+
+            color: black;
+            background: white;
+            padding: 5em 5em 5em 5em;
+            display: flex;
+            flex-direction: column;
+            align-items: normal;
+            flex: 1;
+            justify-content: center;
+        }
+
+        main .board-item {
+            margin-bottom: 1em;
+            padding: 1em;
+            background-color: rgb(220, 220, 220);
+        }
+
+        main .board-title a {
+            color: black;
+            text-decoration: none;
+        }
+
+        main .board-details {
+            font-size: 14px;
+            color: black;
+        }
+
+        .btn-write {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* 페이지 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 1em;
+        }
+
+        .pagination span,
+        .pagination a {
+            font-size: 14px;
+            padding: 0.25em 0.5em;
+            margin: 0 0.25em;
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #ccc;
+        }
+
+        .pagination span:first-child,
+        .pagination a:first-child {
+            margin-left: 0;
+        }
+
+        .pagination span:last-child,
+        .pagination a:last-child {
+            margin-right: 0;
+        }
+
+        .pagination .selected {
+            color: #FF0266;
+            font-weight: bold;
+        }
+
+
+
+
+        /* footer */
+
+        footer {
+            color: #333333;
+            background: white;
+            padding: 1em 0 1em 0;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<header>
+    <h1><a href="/">MbtiBoard</a></h1>
+    <nav>
+        <!-- 네비게이션 메뉴 등의 내용 -->
+        <div id="menu">
+            <ul>
+                <li><a href="/board/list">Board</a></li>
+                <li><a href="/member/login">Login</a></li>
+                <li><a href="/member/save">Sign in</a></li>
+                <li><a href="/member/list">MemberList</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<%--<%@ include file="../layout/header.jsp" %>--%>
+<div class="main_body">
+    <%--<%@ include file="../layout/aside.jsp" %>--%>
+    <aside class="left">
+        <div>
+            <ul>
+                <li><a href="/board/list">전체글보기</a></li>
+                <li class="mbti-menu">
+                    <a class="mbti-menu-title">MBTI별 글 보기</a>
+                    <div class="mbti-menu-content">
+                        <a href="#">ISTJ</a>
+                        <a href="#">ISTP</a>
+                        <a href="#">ISFJ</a>
+                        <a href="#">ISFP</a>
+                        <a href="#">INFJ</a>
+                        <a href="#">INFP</a>
+                        <a href="#">INTJ</a>
+                        <a href="#">INTP</a>
+                        <a href="#">ESTJ</a>
+                        <a href="#">ESTP</a>
+                        <a href="#">ESFJ</a>
+                        <a href="#">ESFP</a>
+                        <a href="#">ENFJ</a>
+                        <a href="#">ENFP</a>
+                        <a href="#">ENTJ</a>
+                        <a href="#">ENTP</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <main>
+
+
+    </main>
+
+
 </div>
+<footer>
+    footer
+</footer>
 </body>
+
 </html>

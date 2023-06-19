@@ -50,12 +50,16 @@ public class BoardController {
 //    }
     //글 상세조회
     @GetMapping
-    public String findByBno(@RequestParam("bno") Integer bno, Model model ){
+    public String findByBno(@RequestParam("bno") Integer bno,
+                            @RequestParam(value = "page", required = false , defaultValue = "1") int page,
+                            Model model){
         System.out.println("boardBno = " + bno);
+        System.out.println( "Detail_page = " + page );
         //글 상세보기 클릭시 조회수 증가
         boardService.updateHits(bno);
         BoardDTO boardDTO = boardService.findByBno(bno);
         model.addAttribute("board",boardDTO);
+        model.addAttribute("page",page);
         return "board/boardListDetail";
 
     }
