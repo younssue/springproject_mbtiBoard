@@ -99,7 +99,7 @@
         }
         .board_content {
             color: #444343;
-            font-size: 20pt;
+            font-size: 17pt;
             margin: 10pt;
         }
 
@@ -163,8 +163,10 @@
 <div class="buttons">
     <button onclick="listFn()">목록</button>
 
+<c:if test="${editable}">
     <button onclick="updateFn()">수정</button>
     <button onclick="deleteFn()">삭제</button>
+</c:if>
 </div>
 </main>
 <script>

@@ -19,10 +19,10 @@ public class BoardService {
         return boardRepository.boardSave(boardDTO);
     }
 
-    //글 목록 불러오기
-    public List<BoardDTO> findAll() {
-        return boardRepository.findAll();
-    }
+//    //글 목록 불러오기
+//    public List<BoardDTO> findAll() {
+//        return boardRepository.findAll();
+//    }
 
     //상세글
     public BoardDTO findByBno(Integer bno) {
@@ -49,7 +49,7 @@ public class BoardService {
 
 
         /*
-        1페이지당 5개의 글
+        1페이지당 3개의 글
             1page => 0
             2page => 3
             3page => 6
@@ -86,5 +86,39 @@ public class BoardService {
         pageDTO.setStartPage(startPage);
         pageDTO.setEndPage(endPage);
         return pageDTO;
+    }
+
+    int mbtiPageLimit = 3;// 한 페이지당 보여줄 글 갯수
+    int mbtiBlockLimit = 3;// 하단에 보여줄 페이지 번호 갯수
+    public List<BoardDTO> mbtiPagingList(int page) {
+        int mbtiPageStart = ( page - 1 ) * mbtiPageLimit;
+        System.out.println("mbtiPageStart = " + mbtiPageStart);
+        Map<String, Integer> pagingParams = new HashMap<>();
+        pagingParams.put("start",mbtiPageStart);
+        pagingParams.put("limit",mbtiPageLimit);
+        List<BoardDTO> mbtiPagingList = boardRepository.mbtiPagingList(pagingParams);
+        System.out.println("mbtiPagingList = " + mbtiPagingList);
+        return mbtiPagingList;
+    }
+
+    public PageDTO mbtiPagingParam(int page) {
+
+        //전체 글 갯수 조회
+        int mbtiBoardCount = boardRepository.mbtiBoardCount();
+        // 전체 페이지 갯수 계산 (10/3 = 3.333 => 페이지 총 4
+        int mbtiMaxPage = (int)(Math.ceil((double) mbtiBoardCount/ mbtiPageLimit));
+        // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)
+        int mbtiStartPage = (((int)(Math.ceil((double) page / mbtiBlockLimit))) - 1) * mbtiBlockLimit + 1;
+        // 끝 페이지 값 계산(3,6,9,12, ~~~~)
+        int mbtiEndPage = mbtiStartPage + mbtiBlockLimit - 1;
+        if (mbtiEndPage > mbtiMaxPage) {
+            mbtiEndPage = mbtiMaxPage;
+        }
+        PageDTO mbtiPageDTO = new PageDTO();
+        mbtiPageDTO.setPage(page);
+        mbtiPageDTO.setMaxPage(mbtiMaxPage);
+        mbtiPageDTO.setStartPage(mbtiStartPage);
+        mbtiPageDTO.setEndPage(mbtiEndPage);
+        return mbtiPageDTO;
     }
 }

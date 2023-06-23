@@ -56,7 +56,7 @@
     </style>
 </head>
 <body>
-<form action="/board/save" method="post">
+<form action="/board/save" method="post" enctype="multipart/form-data">
 <%--    <input type="text" name="boardId" placeholder="작성자">--%>
     <label for="">MBTI 게시판 선택</label>
     <select name="boardMbti">
@@ -81,6 +81,7 @@
     </select>
     <input type="text" name="boardTitle" placeholder="제목">
     <textarea name="boardContents" cols="30" rows="10" placeholder="내용을 입력하세요"></textarea>
+    file: <input type="file" name="boardFile">
     <input type="submit" value="작성">
 </form>
 </body>

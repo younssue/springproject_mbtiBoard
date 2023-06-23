@@ -17,10 +17,10 @@ public class BoardRepository {
         return sql.insert("Board.boardSave", boardDTO);
     }
 
-    //글 목록 불러오기
-    public List<BoardDTO> findAll() {
-        return sql.selectList("Board.findAll");
-    }
+//    //글 목록 불러오기
+//    public List<BoardDTO> findAll() {
+//        return sql.selectList("Board.findAll");
+//    }
 
     //글 상세 보기
     public BoardDTO findByBno(Integer bno) {
@@ -47,5 +47,13 @@ public class BoardRepository {
 
     public int boardCount() {
         return sql.selectOne("Board.boardCount");
+    }
+
+    public List<BoardDTO> mbtiPagingList(Map<String, Integer> pagingParams) {
+        return sql.selectList("Board.mbtiPagingList",pagingParams);
+    }
+
+    public int mbtiBoardCount() {
+        return sql.selectOne("Board.mbtiBoardCount");
     }
 }

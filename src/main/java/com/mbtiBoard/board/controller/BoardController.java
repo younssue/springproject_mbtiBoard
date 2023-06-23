@@ -3,6 +3,7 @@ package com.mbtiBoard.board.controller;
 import com.mbtiBoard.board.dto.BoardDTO;
 import com.mbtiBoard.board.dto.PageDTO;
 import com.mbtiBoard.board.service.BoardService;
+import com.mbtiBoard.member.dto.MemberDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,13 +53,25 @@ public class BoardController {
     @GetMapping
     public String findByBno(@RequestParam("bno") Integer bno,
                             @RequestParam(value = "page", required = false , defaultValue = "1") int page,
-                            Model model){
+                            Model model,
+                            HttpSession session){
         System.out.println("boardBno = " + bno);
         System.out.println( "Detail_page = " + page );
+
         //글 상세보기 클릭시 조회수 증가
         boardService.updateHits(bno);
         BoardDTO boardDTO = boardService.findByBno(bno);
+        //글 작성한 사람과 동일인일 때 수정가능
+        String loginId = (String) session.getAttribute("loginId");
+        if (loginId != null && loginId.equals(boardDTO.getBoardId())) {
+            model.addAttribute("editable", true);
+        } else {
+            model.addAttribute("editable", false);
+        }
+
+
         model.addAttribute("board",boardDTO);
+        //page값을 requestParam으로 받아와서 model에 담아 Jstl로 넘겨줌
         model.addAttribute("page",page);
         return "board/boardListDetail";
 
@@ -66,19 +79,20 @@ public class BoardController {
 
     //글 수정
     @GetMapping("/update")
-    public String updateForm(@RequestParam("bno") Integer bno,Model model){
+    public String updateForm(@RequestParam("bno") Integer bno,Model model,HttpSession session){
         BoardDTO boardDTO = boardService.findByBno(bno);
         model.addAttribute("board", boardDTO);
+
         return "board/boardUpdate";
     }
 
     @PostMapping("/update")
-    public String boardUpdate(@ModelAttribute BoardDTO boardDTO , Model model){
+    public String boardUpdate(@ModelAttribute BoardDTO boardDTO , Model model,HttpSession session){
         boardService.boardUpdate(boardDTO);
         BoardDTO dto = boardService.findByBno(boardDTO.getBno());
         System.out.println("bno="+ boardDTO.getBno());
         System.out.println("dto="+ dto);
-        model.addAttribute("board" , dto);
+
         return "board/boardListDetail";
         //redirect를 할 경우 글 상세보기 메서드를 다시 실행하게 된다
         //그렇게 되면 글 수정 후 다시 글 상세창으로 돌아갔을 때 조회수가 올라가게 된다
@@ -109,6 +123,21 @@ public class BoardController {
         model.addAttribute("boardList",pagingList);
         model.addAttribute("paging", pageDTO);
         return "board/boardList";
+    }
+
+
+    //mbti 카데고리 별 페이징
+    @GetMapping("/mbtilist")
+    public String mbtiPaging (Model model,
+                          @RequestParam(value = "page", required = false , defaultValue = "1") int page){
+        System.out.println(" mbtipage = " + page);
+        //해당 페이지에서 보여줄 글 목록
+        List<BoardDTO> mbtiPagingList = boardService.mbtiPagingList(page);
+        System.out.println("mbtiPagingList="+mbtiPagingList);
+        PageDTO mbtiPageDTO = boardService.mbtiPagingParam(page);
+        model.addAttribute("mbtiBoardList",mbtiPagingList);
+        model.addAttribute("mbtiPaging", mbtiPageDTO);
+        return "board/mbtiBoardList";
     }
 
 }
