@@ -43,4 +43,13 @@
     <select id="mbtiBoardCount" resultType="Integer">
         select count(bno) from board_info  where boardMbti like #{boardMbti}
     </select>
+
+<!--    <select id="searchCount" parameterType="SearchCondition" resultType="int">
+        select count(bno) from board_info where boardTitle like concat('%',#{keyword},'%')
+    </select>
+
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType="board">
+        select * from board_info where boardTitle like concat('%',#{keyword},'%') order by bno desc limit #{start},#{end}
+    </select>-->
+
 </mapper>

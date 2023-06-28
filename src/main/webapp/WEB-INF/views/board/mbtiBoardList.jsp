@@ -279,7 +279,7 @@
         <c:forEach items="${mbtiBoardList}" var="board">
             <div class="board-item">
                 <div class="board-title">
-                    <a href="/board?bno=${board.bno}&page=${mbtiPaging.page}">${board.boardTitle}</a>
+                    <a href="/board?bno=${board.bno}&page=${mbtiPaging.mbtiPage}">${board.boardTitle}</a>
                 </div>
                 <div class="board-details">
                     게시글 번호: ${board.bno} | 게시글 번호: ${board.boardMbti} | 작성자: ${board.boardId} | 조회수:
@@ -290,31 +290,31 @@
 
         <div class="pagination">
             <c:choose>
-                <c:when test="${mbtiPaging.page < 1}">
-                    <span class="selected"> < </span>
+                <c:when test="${mbtiPaging.mbtiPage <= 1}">
+                    <span onclick="alert('이전 페이지가 없습니다')"> &lt; </span>
                 </c:when>
                 <c:otherwise>
-                    <a href="/board/list?page=${mbtiPaging.page - 1}"> < </a>
+                    <a href="/board/mbtilist?boardMbti=${mbtiPaging.boardMbti}&mbtiPage=${mbtiPaging.mbtiPage - 1}"> &lt; </a>
                 </c:otherwise>
             </c:choose>
 
-            <c:forEach begin="${mbtiPaging.mbtiPageStart}" end="${mbtiPaging.mbtiEndPage}" var="i" step="1">
+            <c:forEach begin="${mbtiPaging.mbtiStartPage}" end="${mbtiPaging.mbtiEndPage}" var="i" step="1">
                 <c:choose>
-                    <c:when test="${i eq mbtiPaging.page}">
+                    <c:when test="${i eq mbtiPaging.mbtiPage}">
                         <span class="selected">${i}</span>
                     </c:when>
                     <c:otherwise>
-                        <a href="/board/list?page=${i}">${i}</a>
+                        <a href="/board/mbtilist?boardMbti=${mbtiPaging.boardMbti}&mbtiPage=${i}">${i}</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
 
             <c:choose>
-                <c:when test="${mbtiPaging.page > mbtiPaging.mbtiMaxPage}">
-                    <span class="selected"> > </span>
+                <c:when test="${mbtiPaging.mbtiPage >= mbtiPaging.mbtiMaxPage}">
+                    <span onclick="alert('다음 페이지가 없습니다')"> &gt; </span>
                 </c:when>
                 <c:otherwise>
-                    <a href="/board/list?page=${mbtiPaging.page + 1}"> > </a>
+                    <a href="/board/mbtilist?boardMbti=${mbtiPaging.boardMbti}&mbtiPage=${mbtiPaging.mbtiPage + 1}"> &gt; </a>
                 </c:otherwise>
             </c:choose>
         </div>

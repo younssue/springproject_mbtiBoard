@@ -250,7 +250,7 @@
                 <li class="mbti-menu">
                     <a class="mbti-menu-title">MBTI별 글 보기</a>
                     <div class="mbti-menu-content">
-                        <a href="#">ISTJ</a>
+                        <a href="/board/mbtilist?boardMbti=ISTJ">ISTJ</a>
                         <a href="#">ISTP</a>
                         <a href="#">ISFJ</a>
                         <a href="#">ISFP</a>
@@ -290,11 +290,11 @@
 
         <div class="pagination">
             <c:choose>
-                <c:when test="${paging.page < 1}">
-                    <span class="selected"> < </span>
+                <c:when test="${paging.page <= 1}">
+                    <span onclick="alert('이전 페이지가 없습니다')"> &lt; </span>
                 </c:when>
                 <c:otherwise>
-                    <a href="/board/list?page=${paging.page - 1}"> < </a>
+                    <a href="/board/list?page=${paging.page - 1}"> &lt; </a>
                 </c:otherwise>
             </c:choose>
 
@@ -310,8 +310,8 @@
             </c:forEach>
 
             <c:choose>
-                <c:when test="${paging.page > paging.maxPage}">
-                    <span class="selected"> > </span>
+                <c:when test="${paging.page >= paging.maxPage}">
+                    <span onclick="alert('다음 페이지가 없습니다')"> &gt; </span>
                 </c:when>
                 <c:otherwise>
                     <a href="/board/list?page=${paging.page + 1}"> > </a>

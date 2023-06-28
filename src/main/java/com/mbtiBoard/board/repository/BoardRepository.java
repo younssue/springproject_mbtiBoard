@@ -40,6 +40,7 @@ public class BoardRepository {
         sql.delete("Board.boardDelete",bno);
     }
 
+
     public List<BoardDTO> pagingList(Map<String, Integer> pagingParams) {
         return sql.selectList("Board.pagingList",pagingParams);
     }
@@ -49,11 +50,24 @@ public class BoardRepository {
         return sql.selectOne("Board.boardCount");
     }
 
+/*
     public List<BoardDTO> mbtiPagingList(Map<String, Integer> pagingParams) {
+        return sql.selectList("Board.mbtiPagingList",pagingParams);
+    }*/
+
+    public int mbtiBoardCount(String boardMbti) {
+        return sql.selectOne("Board.mbtiBoardCount",boardMbti);
+    }
+
+    public List<BoardDTO> mbtiPagingList(Map<String, Object> pagingParams) {
         return sql.selectList("Board.mbtiPagingList",pagingParams);
     }
 
-    public int mbtiBoardCount() {
-        return sql.selectOne("Board.mbtiBoardCount");
+/*    public int searchCount(SearchCondition searchCondition) {
+        return sql.selectOne("Board.boardCount");
     }
+
+    public List<BoardDTO> searchSelectPage(SearchCondition searchCondition) {
+        return sql.selectList("Board.searchSelectPage", searchCondition);
+    }*/
 }

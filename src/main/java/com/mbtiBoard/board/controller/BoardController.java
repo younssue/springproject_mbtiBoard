@@ -1,7 +1,6 @@
 package com.mbtiBoard.board.controller;
 
-import com.mbtiBoard.board.dto.BoardDTO;
-import com.mbtiBoard.board.dto.PageDTO;
+import com.mbtiBoard.board.dto.*;
 import com.mbtiBoard.board.service.BoardService;
 import com.mbtiBoard.member.dto.MemberDTO;
 import lombok.RequiredArgsConstructor;
@@ -125,16 +124,36 @@ public class BoardController {
         return "board/boardList";
     }
 
+/*    @GetMapping("/list")
+    public String searchPaging (Model model, SearchCondition searchCondition){
+        int boardCount = boardService.getSearchCount(searchCondition);
+        model.addAttribute("boardCount", boardCount);
+        System.out.println("SearchBoardCount="+ boardCount);
+        System.out.println("searchCondition = " + searchCondition);
+        searchCondition.setStart();
+        searchCondition.setEnd();
+        System.out.println("page = " + searchCondition.getPage() + ", Start = " + searchCondition.getStart() + ",end = "+ searchCondition.getEnd());
+        SearchPageHandler searchPageHandler = new SearchPageHandler(boardCount,searchCondition);
+
+        List<BoardDTO> boardList = boardService.getSearchSelectPage(searchCondition);
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("searchPageHandler", searchPageHandler);
+
+        return "board/boardList2";
+    }*/
+
 
     //mbti 카데고리 별 페이징
     @GetMapping("/mbtilist")
     public String mbtiPaging (Model model,
-                          @RequestParam(value = "page", required = false , defaultValue = "1") int page){
-        System.out.println(" mbtipage = " + page);
+                              @RequestParam(value = "mbtiPage", required = false , defaultValue = "1") int mbtiPage,
+                              @RequestParam String boardMbti){
+        System.out.println(" mbtipage = " + mbtiPage);
+        System.out.println( " boardMbti = " + boardMbti);
         //해당 페이지에서 보여줄 글 목록
-        List<BoardDTO> mbtiPagingList = boardService.mbtiPagingList(page);
+        List<BoardDTO> mbtiPagingList = boardService.mbtiPagingList(mbtiPage,boardMbti);
         System.out.println("mbtiPagingList="+mbtiPagingList);
-        PageDTO mbtiPageDTO = boardService.mbtiPagingParam(page);
+        mbtiPageDTO mbtiPageDTO = boardService.mbtiPagingParam(mbtiPage,boardMbti);
         model.addAttribute("mbtiBoardList",mbtiPagingList);
         model.addAttribute("mbtiPaging", mbtiPageDTO);
         return "board/mbtiBoardList";

@@ -2,6 +2,7 @@ package com.mbtiBoard.board.service;
 
 import com.mbtiBoard.board.dto.BoardDTO;
 import com.mbtiBoard.board.dto.PageDTO;
+import com.mbtiBoard.board.dto.mbtiPageDTO;
 import com.mbtiBoard.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -90,35 +91,49 @@ public class BoardService {
 
     int mbtiPageLimit = 3;// 한 페이지당 보여줄 글 갯수
     int mbtiBlockLimit = 3;// 하단에 보여줄 페이지 번호 갯수
-    public List<BoardDTO> mbtiPagingList(int page) {
-        int mbtiPageStart = ( page - 1 ) * mbtiPageLimit;
+    public List<BoardDTO> mbtiPagingList(int mbtiPage, String boardMbti) {
+        int mbtiPageStart = ( mbtiPage - 1 ) * mbtiPageLimit;
         System.out.println("mbtiPageStart = " + mbtiPageStart);
-        Map<String, Integer> pagingParams = new HashMap<>();
+        Map<String, Object> pagingParams = new HashMap<>();
+
         pagingParams.put("start",mbtiPageStart);
         pagingParams.put("limit",mbtiPageLimit);
+        pagingParams.put("boardMbti", boardMbti);
+
         List<BoardDTO> mbtiPagingList = boardRepository.mbtiPagingList(pagingParams);
         System.out.println("mbtiPagingList = " + mbtiPagingList);
         return mbtiPagingList;
     }
 
-    public PageDTO mbtiPagingParam(int page) {
+   public mbtiPageDTO mbtiPagingParam(int mbtiPage, String boardMbti) {
 
         //전체 글 갯수 조회
-        int mbtiBoardCount = boardRepository.mbtiBoardCount();
+        int mbtiBoardCount = boardRepository.mbtiBoardCount(boardMbti);
+       System.out.println("mbtiBoardCount="+mbtiBoardCount);
+       System.out.println("SmbtiPage = " + mbtiPage + ", SboardMbti = " + boardMbti);
         // 전체 페이지 갯수 계산 (10/3 = 3.333 => 페이지 총 4
         int mbtiMaxPage = (int)(Math.ceil((double) mbtiBoardCount/ mbtiPageLimit));
         // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)
-        int mbtiStartPage = (((int)(Math.ceil((double) page / mbtiBlockLimit))) - 1) * mbtiBlockLimit + 1;
+        int mbtiStartPage = (((int)(Math.ceil((double) mbtiPage / mbtiBlockLimit))) - 1) * mbtiBlockLimit + 1;
         // 끝 페이지 값 계산(3,6,9,12, ~~~~)
         int mbtiEndPage = mbtiStartPage + mbtiBlockLimit - 1;
         if (mbtiEndPage > mbtiMaxPage) {
             mbtiEndPage = mbtiMaxPage;
         }
-        PageDTO mbtiPageDTO = new PageDTO();
-        mbtiPageDTO.setPage(page);
-        mbtiPageDTO.setMaxPage(mbtiMaxPage);
-        mbtiPageDTO.setStartPage(mbtiStartPage);
-        mbtiPageDTO.setEndPage(mbtiEndPage);
+        mbtiPageDTO mbtiPageDTO = new mbtiPageDTO();
+        mbtiPageDTO.setMbtiPage(mbtiPage);
+        mbtiPageDTO.setMbtiMaxPage(mbtiMaxPage);
+        mbtiPageDTO.setMbtiStartPage(mbtiStartPage);
+        mbtiPageDTO.setMbtiEndPage(mbtiEndPage);
+        mbtiPageDTO.setBoardMbti(boardMbti);
         return mbtiPageDTO;
     }
+
+/*    public int getSearchCount(SearchCondition searchCondition) {
+        return boardRepository.searchCount(searchCondition);
+    }
+
+    public List<BoardDTO> getSearchSelectPage(SearchCondition searchCondition) {
+        return boardRepository.searchSelectPage(searchCondition);
+    }*/
 }
