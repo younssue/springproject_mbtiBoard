@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/board")
 public class BoardController {
     private final BoardService boardService;
-
+    boolean condition;
     //게시판 글작성
 /*    @GetMapping("/list")
     public String boardIndex(){
@@ -53,10 +53,13 @@ public class BoardController {
     public String findByBno(@RequestParam("bno") Integer bno,
                             @RequestParam(value = "page", required = false , defaultValue = "1") int page,
                             Model model,
-                            HttpSession session){
+                            HttpSession session,
+                            @RequestParam(value = "mbtiPage", required = false , defaultValue = "1") int mbtiPage,
+                            @RequestParam (value = "boardMbti",required = false,defaultValue = "null")String boardMbti){
         System.out.println("boardBno = " + bno);
         System.out.println( "Detail_page = " + page );
-
+        System.out.println( "mbti_Detail_page = " + mbtiPage );
+        System.out.println( "Detail_ boardMbti = " + boardMbti);
         //글 상세보기 클릭시 조회수 증가
         boardService.updateHits(bno);
         BoardDTO boardDTO = boardService.findByBno(bno);
@@ -68,10 +71,13 @@ public class BoardController {
             model.addAttribute("editable", false);
         }
 
-
+        model.addAttribute("condition", condition);
         model.addAttribute("board",boardDTO);
         //page값을 requestParam으로 받아와서 model에 담아 Jstl로 넘겨줌
         model.addAttribute("page",page);
+        //카데고리 mbtiPage 담아 보내기
+        model.addAttribute("mbtiPage",mbtiPage);
+        model.addAttribute("boardMbti",boardMbti);
         return "board/boardListDetail";
 
     }
@@ -113,8 +119,10 @@ public class BoardController {
     //하지만 page=1 로 default값을 가진다 ( defaultValue = "1")
     @GetMapping("/list")
     public String paging (Model model,
-                          @RequestParam(value = "page", required = false , defaultValue = "1") int page){
+                          @RequestParam(value = "page", required = false , defaultValue = "1") int page
+                          ){
         System.out.println(" page = " + page);
+        condition = false;
         //해당 페이지에서 보여줄 글 목록
         List<BoardDTO> pagingList = boardService.pagingList(page);
         System.out.println("pagingList="+pagingList);
@@ -124,23 +132,6 @@ public class BoardController {
         return "board/boardList";
     }
 
-/*    @GetMapping("/list")
-    public String searchPaging (Model model, SearchCondition searchCondition){
-        int boardCount = boardService.getSearchCount(searchCondition);
-        model.addAttribute("boardCount", boardCount);
-        System.out.println("SearchBoardCount="+ boardCount);
-        System.out.println("searchCondition = " + searchCondition);
-        searchCondition.setStart();
-        searchCondition.setEnd();
-        System.out.println("page = " + searchCondition.getPage() + ", Start = " + searchCondition.getStart() + ",end = "+ searchCondition.getEnd());
-        SearchPageHandler searchPageHandler = new SearchPageHandler(boardCount,searchCondition);
-
-        List<BoardDTO> boardList = boardService.getSearchSelectPage(searchCondition);
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("searchPageHandler", searchPageHandler);
-
-        return "board/boardList2";
-    }*/
 
 
     //mbti 카데고리 별 페이징
@@ -148,6 +139,7 @@ public class BoardController {
     public String mbtiPaging (Model model,
                               @RequestParam(value = "mbtiPage", required = false , defaultValue = "1") int mbtiPage,
                               @RequestParam String boardMbti){
+        condition = true;
         System.out.println(" mbtipage = " + mbtiPage);
         System.out.println( " boardMbti = " + boardMbti);
         //해당 페이지에서 보여줄 글 목록

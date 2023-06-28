@@ -50,10 +50,7 @@ public class BoardRepository {
         return sql.selectOne("Board.boardCount");
     }
 
-/*
-    public List<BoardDTO> mbtiPagingList(Map<String, Integer> pagingParams) {
-        return sql.selectList("Board.mbtiPagingList",pagingParams);
-    }*/
+
 
     public int mbtiBoardCount(String boardMbti) {
         return sql.selectOne("Board.mbtiBoardCount",boardMbti);
@@ -63,11 +60,5 @@ public class BoardRepository {
         return sql.selectList("Board.mbtiPagingList",pagingParams);
     }
 
-/*    public int searchCount(SearchCondition searchCondition) {
-        return sql.selectOne("Board.boardCount");
-    }
 
-    public List<BoardDTO> searchSelectPage(SearchCondition searchCondition) {
-        return sql.selectList("Board.searchSelectPage", searchCondition);
-    }*/
 }

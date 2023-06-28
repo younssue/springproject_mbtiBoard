@@ -129,11 +129,5 @@ public class BoardService {
         return mbtiPageDTO;
     }
 
-/*    public int getSearchCount(SearchCondition searchCondition) {
-        return boardRepository.searchCount(searchCondition);
-    }
 
-    public List<BoardDTO> getSearchSelectPage(SearchCondition searchCondition) {
-        return boardRepository.searchSelectPage(searchCondition);
-    }*/
 }
