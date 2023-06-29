@@ -45,8 +45,13 @@ public class BoardRepository {
         return sql.selectList("Board.pagingList",pagingParams);
     }
     //전체글 갯수
-    public int boardCount(String keyword) {
-        return sql.selectOne("Board.boardCount",keyword);
+/*    public int boardCount(String keyword, String option) {
+
+        return sql.selectOne("Board.boardCount",);
+    }*/
+
+    public int boardCount(Map<String, Object> countCondition) {
+        return sql.selectOne("Board.boardCount",countCondition);
     }
 
     //카테고리 별 글 갯수
@@ -58,6 +63,7 @@ public class BoardRepository {
     public List<BoardDTO> mbtiPagingList(Map<String, Object> pagingParams) {
         return sql.selectList("Board.mbtiPagingList",pagingParams);
     }
+
 
 
 }

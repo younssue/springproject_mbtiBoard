@@ -28,18 +28,34 @@
         delete from board_info where bno = #{bno}
     </delete>
 
+
+    <sql id="searchCondition">
+        <choose>
+            <when test='option == "T"'>
+                boardTitle like concat('%',#{keyword},'%')
+            </when>
+            <when test='option == "W"'>
+                boardId like concat('%',#{keyword},'%')
+            </when>
+            <otherwise>
+                 boardTitle like concat('%',#{keyword},'%')
+                or boardContents  like concat('%',#{keyword},'%')
+            </otherwise>
+        </choose>
+    </sql>
+
     <select id="pagingList" parameterType="java.util.HashMap" resultType="board">
-        select * from board_info
+        select * from board_info where
         <if test="keyword != null">
-            where boardTitle like concat('%',#{keyword},'%')
+           <include refid="searchCondition"/>
         </if>
             order by bno desc limit #{start},#{limit}
     </select>
 
-    <select id="boardCount" resultType="Integer">
-        select count(bno) from board_info
+    <select id="boardCount" parameterType="java.util.HashMap" resultType="Integer">
+        select count(bno) from board_info where
         <if test="keyword != null">
-            where boardTitle like concat('%',#{keyword},'%')
+            <include refid="searchCondition"/>
         </if>
     </select>
 

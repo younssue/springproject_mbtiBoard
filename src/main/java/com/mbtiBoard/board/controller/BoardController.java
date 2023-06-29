@@ -120,15 +120,17 @@ public class BoardController {
     @GetMapping("/list")
     public String paging (Model model,
                           @RequestParam(value = "page", required = false , defaultValue = "1") int page,
-                          @RequestParam (value = "keyword",required = false,defaultValue = "")String keyword
+                          @RequestParam (value = "keyword",required = false,defaultValue = "")String keyword,
+                          @RequestParam (value = "option",required = false,defaultValue = "")String option
                           ){
         System.out.println(" page = " + page);
         System.out.println(" keyword = " + keyword);
+        System.out.println(" option = " + option);
         condition = false;
         //해당 페이지에서 보여줄 글 목록
-        List<BoardDTO> pagingList = boardService.pagingList(page,keyword);
+        List<BoardDTO> pagingList = boardService.pagingList(page,keyword,option);
         System.out.println("pagingList="+pagingList);
-        PageDTO pageDTO = boardService.pagingParam(page,keyword);
+        PageDTO pageDTO = boardService.pagingParam(page,keyword,option);
         model.addAttribute("boardList",pagingList);
         model.addAttribute("paging", pageDTO);
         return "board/boardList";

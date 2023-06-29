@@ -47,7 +47,7 @@ public class BoardService {
     //전체글 게시판 페이징
     int pageLimit = 3;// 한 페이지당 보여줄 글 갯수
     int blockLimit = 3;// 하단에 보여줄 페이지 번호 갯수
-    public List<BoardDTO> pagingList(int page, String keyword) {
+    public List<BoardDTO> pagingList(int page, String keyword, String option) {
 
 
         /*
@@ -66,14 +66,19 @@ public class BoardService {
         pagingParams.put("start",pageStart);
         pagingParams.put("limit",pageLimit);
         pagingParams.put("keyword", keyword);
+        pagingParams.put("option",option);
+
         List<BoardDTO> pagingList = boardRepository.pagingList(pagingParams);
         System.out.println("pagingList = " + pagingList);
         return pagingList;
     }
 
-    public PageDTO pagingParam(int page, String keyword) {
+    public PageDTO pagingParam(int page, String keyword, String option) {
         //전체 글 갯수 조회
-        int boardCount = boardRepository.boardCount(keyword);
+        Map<String, Object> countCondition = new HashMap<>();
+        countCondition.put("keyword", keyword);
+        countCondition.put("option", option);
+        int boardCount = boardRepository.boardCount(countCondition);
         // 전체 페이지 갯수 계산 (10/3 = 3.333 => 페이지 총 4
         int maxPage = (int)(Math.ceil((double) boardCount/ pageLimit));
         // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)
@@ -89,6 +94,7 @@ public class BoardService {
         pageDTO.setStartPage(startPage);
         pageDTO.setEndPage(endPage);
         pageDTO.setKeyword(keyword);
+        pageDTO.setOption(option);
         return pageDTO;
     }
 

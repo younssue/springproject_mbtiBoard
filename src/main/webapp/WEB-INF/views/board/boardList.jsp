@@ -276,6 +276,14 @@
         <h2>전체 게시글</h2>
         <div class="search_wrap">
             <form class="search">
+                <select class="search-option" name="option">
+<%--                    <option value="A" ${paging.option || paging.option=='' ? 'selected' :''}>제목+내용</option>
+                    <option value="T" ${paging.option ? 'selected' : ''}>제목</option>
+                    <option value="W" ${paging.option ? 'selected' : ''}>작성자</option>--%>
+                    <option value="A" <c:out value="${paging.option eq 'A'? 'selected' :''}"/> >제목+내용</option>
+                    <option value="T" <c:out value="${paging.option eq 'T'? 'selected' : ''}"/> >제목</option>
+                    <option value="W" <c:out value="${paging.option eq 'W'? 'selected' : ''}"/> >작성자</option>
+                </select>
                 <input type="text" name="keyword" value="${paging.keyword}">
                 <button class="searchButton" type="submit">검색</button>
             </form>
@@ -302,7 +310,7 @@
                     <span onclick="alert('이전 페이지가 없습니다')"> &lt; </span>
                 </c:when>
                 <c:otherwise>
-                    <a href="/board/list?page=${paging.page - 1}&search=${paging.keyword}"> &lt; </a>
+                    <a href="/board/list?page=${paging.page - 1}&option=${paging.option}&search=${paging.keyword}"> &lt; </a>
                 </c:otherwise>
             </c:choose>
 
@@ -312,7 +320,7 @@
                         <span class="selected">${i}</span>
                     </c:when>
                     <c:otherwise>
-                        <a href="/board/list?page=${i}&search=${paging.keyword}">${i}</a>
+                        <a href="/board/list?page=${i}&option=${paging.option}&search=${paging.keyword}">${i}</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -322,7 +330,7 @@
                     <span onclick="alert('다음 페이지가 없습니다')"> &gt; </span>
                 </c:when>
                 <c:otherwise>
-                    <a href="/board/list?page=${paging.page + 1}&search=${paging.keyword}"> > </a>
+                    <a href="/board/list?page=${paging.page + 1}&option=${paging.option}&search=${paging.keyword}"> > </a>
                 </c:otherwise>
             </c:choose>
         </div>
