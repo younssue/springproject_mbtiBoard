@@ -119,14 +119,16 @@ public class BoardController {
     //하지만 page=1 로 default값을 가진다 ( defaultValue = "1")
     @GetMapping("/list")
     public String paging (Model model,
-                          @RequestParam(value = "page", required = false , defaultValue = "1") int page
+                          @RequestParam(value = "page", required = false , defaultValue = "1") int page,
+                          @RequestParam (value = "keyword",required = false,defaultValue = "")String keyword
                           ){
         System.out.println(" page = " + page);
+        System.out.println(" keyword = " + keyword);
         condition = false;
         //해당 페이지에서 보여줄 글 목록
-        List<BoardDTO> pagingList = boardService.pagingList(page);
+        List<BoardDTO> pagingList = boardService.pagingList(page,keyword);
         System.out.println("pagingList="+pagingList);
-        PageDTO pageDTO = boardService.pagingParam(page);
+        PageDTO pageDTO = boardService.pagingParam(page,keyword);
         model.addAttribute("boardList",pagingList);
         model.addAttribute("paging", pageDTO);
         return "board/boardList";
@@ -138,7 +140,8 @@ public class BoardController {
     @GetMapping("/mbtilist")
     public String mbtiPaging (Model model,
                               @RequestParam(value = "mbtiPage", required = false , defaultValue = "1") int mbtiPage,
-                              @RequestParam String boardMbti){
+                              @RequestParam (value = "boardMbti",required = false,defaultValue = "")String boardMbti
+                              ){
         condition = true;
         System.out.println(" mbtipage = " + mbtiPage);
         System.out.println( " boardMbti = " + boardMbti);

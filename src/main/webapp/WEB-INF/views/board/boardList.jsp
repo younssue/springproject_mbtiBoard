@@ -164,7 +164,7 @@
        .btn-write {
            display: inline-block;
            padding: 10px 20px;
-           background-color: #4CAF50;
+           background-color: plum;
            color: white;
            text-align: center;
            font-size: 16px;
@@ -272,7 +272,15 @@
         </div>
     </aside>
     <main>
+
         <h2>전체 게시글</h2>
+        <div class="search_wrap">
+            <form class="search">
+                <input type="text" name="keyword" value="${paging.keyword}">
+                <button class="searchButton" type="submit">검색</button>
+            </form>
+        </div>
+
         <c:if test="${sessionScope.loginId != null}">
             <button onclick="save()" type="button" class="btn-write">글 작성</button> <!-- 버튼 스타일을 적용한 클래스로 변경 -->
         </c:if>
@@ -294,7 +302,7 @@
                     <span onclick="alert('이전 페이지가 없습니다')"> &lt; </span>
                 </c:when>
                 <c:otherwise>
-                    <a href="/board/list?page=${paging.page - 1}"> &lt; </a>
+                    <a href="/board/list?page=${paging.page - 1}&search=${paging.keyword}"> &lt; </a>
                 </c:otherwise>
             </c:choose>
 
@@ -304,7 +312,7 @@
                         <span class="selected">${i}</span>
                     </c:when>
                     <c:otherwise>
-                        <a href="/board/list?page=${i}">${i}</a>
+                        <a href="/board/list?page=${i}&search=${paging.keyword}">${i}</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -314,7 +322,7 @@
                     <span onclick="alert('다음 페이지가 없습니다')"> &gt; </span>
                 </c:when>
                 <c:otherwise>
-                    <a href="/board/list?page=${paging.page + 1}"> > </a>
+                    <a href="/board/list?page=${paging.page + 1}&search=${paging.keyword}"> > </a>
                 </c:otherwise>
             </c:choose>
         </div>

@@ -226,6 +226,8 @@
 </head>
 
 <body>
+
+
 <header>
     <h1><a href="/">MbtiBoard</a></h1>
     <nav>
@@ -272,11 +274,12 @@
         </div>
     </aside>
     <main>
-        <h2>전체 게시글</h2>
+        <h2>${mbtiPaging.boardMbti} 게시글</h2>
         <c:if test="${sessionScope.loginId != null}">
             <button onclick="save()" type="button" class="btn-write">글 작성</button> <!-- 버튼 스타일을 적용한 클래스로 변경 -->
         </c:if>
         <c:forEach items="${mbtiBoardList}" var="board">
+
             <div class="board-item">
                 <div class="board-title">
                     <a href="/board?boardMbti=${mbtiPaging.boardMbti}&bno=${board.bno}&mbtiPage=${mbtiPaging.mbtiPage}">${board.boardTitle}</a>

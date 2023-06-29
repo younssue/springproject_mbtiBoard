@@ -31,31 +31,30 @@ public class BoardRepository {
     public void updateHits(Integer bno) {
         sql.update("Board.updateHits", bno);
     }
-
+    //글수정
     public void boardUpdate(BoardDTO boardDTO) {
         sql.update("Board.boardUpdate", boardDTO);
     }
-
+    //글삭제
     public void boardDelete(Integer bno) {
         sql.delete("Board.boardDelete",bno);
     }
 
-
-    public List<BoardDTO> pagingList(Map<String, Integer> pagingParams) {
+    //전체 게시판 페이징
+    public List<BoardDTO> pagingList(Map<String, Object> pagingParams) {
         return sql.selectList("Board.pagingList",pagingParams);
     }
-
-
-    public int boardCount() {
-        return sql.selectOne("Board.boardCount");
+    //전체글 갯수
+    public int boardCount(String keyword) {
+        return sql.selectOne("Board.boardCount",keyword);
     }
 
-
-
+    //카테고리 별 글 갯수
     public int mbtiBoardCount(String boardMbti) {
         return sql.selectOne("Board.mbtiBoardCount",boardMbti);
     }
 
+    //카테고리 게시판 페이징
     public List<BoardDTO> mbtiPagingList(Map<String, Object> pagingParams) {
         return sql.selectList("Board.mbtiPagingList",pagingParams);
     }

@@ -35,18 +35,19 @@ public class BoardService {
         boardRepository.updateHits(bno);
     }
 
+    //글수정
     public void boardUpdate(BoardDTO boardDTO) {
         boardRepository.boardUpdate(boardDTO);
     }
-
+    //글삭제
     public void boardDelete(Integer bno) {
         boardRepository.boardDelete(bno);
     }
 
-
+    //전체글 게시판 페이징
     int pageLimit = 3;// 한 페이지당 보여줄 글 갯수
     int blockLimit = 3;// 하단에 보여줄 페이지 번호 갯수
-    public List<BoardDTO> pagingList(int page) {
+    public List<BoardDTO> pagingList(int page, String keyword) {
 
 
         /*
@@ -61,17 +62,18 @@ public class BoardService {
 
         int pageStart = ( page - 1 ) * pageLimit;
         System.out.println("pageStart = " + pageStart);
-        Map<String, Integer> pagingParams = new HashMap<>();
+        Map<String, Object> pagingParams = new HashMap<>();
         pagingParams.put("start",pageStart);
         pagingParams.put("limit",pageLimit);
+        pagingParams.put("keyword", keyword);
         List<BoardDTO> pagingList = boardRepository.pagingList(pagingParams);
         System.out.println("pagingList = " + pagingList);
         return pagingList;
     }
 
-    public PageDTO pagingParam(int page) {
+    public PageDTO pagingParam(int page, String keyword) {
         //전체 글 갯수 조회
-        int boardCount = boardRepository.boardCount();
+        int boardCount = boardRepository.boardCount(keyword);
         // 전체 페이지 갯수 계산 (10/3 = 3.333 => 페이지 총 4
         int maxPage = (int)(Math.ceil((double) boardCount/ pageLimit));
         // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)
@@ -86,9 +88,11 @@ public class BoardService {
         pageDTO.setMaxPage(maxPage);
         pageDTO.setStartPage(startPage);
         pageDTO.setEndPage(endPage);
+        pageDTO.setKeyword(keyword);
         return pageDTO;
     }
 
+    //카테고리 페이징
     int mbtiPageLimit = 3;// 한 페이지당 보여줄 글 갯수
     int mbtiBlockLimit = 3;// 하단에 보여줄 페이지 번호 갯수
     public List<BoardDTO> mbtiPagingList(int mbtiPage, String boardMbti) {
@@ -99,6 +103,7 @@ public class BoardService {
         pagingParams.put("start",mbtiPageStart);
         pagingParams.put("limit",mbtiPageLimit);
         pagingParams.put("boardMbti", boardMbti);
+
 
         List<BoardDTO> mbtiPagingList = boardRepository.mbtiPagingList(pagingParams);
         System.out.println("mbtiPagingList = " + mbtiPagingList);

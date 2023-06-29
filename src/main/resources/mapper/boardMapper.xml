@@ -29,11 +29,18 @@
     </delete>
 
     <select id="pagingList" parameterType="java.util.HashMap" resultType="board">
-        select * from board_info order by bno desc limit #{start},#{limit}
+        select * from board_info
+        <if test="keyword != null">
+            where boardTitle like concat('%',#{keyword},'%')
+        </if>
+            order by bno desc limit #{start},#{limit}
     </select>
 
     <select id="boardCount" resultType="Integer">
         select count(bno) from board_info
+        <if test="keyword != null">
+            where boardTitle like concat('%',#{keyword},'%')
+        </if>
     </select>
 
     <select id="mbtiPagingList" parameterType="java.util.HashMap" resultType="board">

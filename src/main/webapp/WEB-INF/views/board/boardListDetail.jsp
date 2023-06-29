@@ -170,10 +170,7 @@
 </div>
 </main>
 <script>
-/*    const listFn = () => {
-        const page = ${page};
-        location.href = "/board/list?page=" + page;
-    }*/
+
 
     const condition = ${condition};
     const listFn= () => {
@@ -188,23 +185,7 @@
             location.href ="/board/mbtilist?boardMbti=${boardMbti}&mbtiPage="+mbtiPage;
         }
     }
-/*
-    const listFn= () => {
-    const page = ${page};
-        console.log(page);
-    const mbtiPage = ${mbtiPage};
-        console.log(mbtiPage);
 
-    if(page){
-
-        location.href = "/board/list?page=" + page;
-    }
-    else if(mbtiPage){
-
-        location.href ="/board/mbtilist?boardMbti=${boardMbti}&mbtiPage="+mbtiPage;
-    }
-    }
-*/
 
     const updateFn = () => {
         const bno = '${board.bno}';
