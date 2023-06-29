@@ -38,8 +38,8 @@
                 boardId like concat('%',#{keyword},'%')
             </when>
             <otherwise>
-                 boardTitle like concat('%',#{keyword},'%')
-                or boardContents  like concat('%',#{keyword},'%')
+                 (boardTitle like concat('%',#{keyword},'%')
+                or boardContents  like concat('%',#{keyword},'%'))
             </otherwise>
         </choose>
     </sql>
@@ -60,11 +60,19 @@
     </select>
 
     <select id="mbtiPagingList" parameterType="java.util.HashMap" resultType="board">
-        select * from board_info where boardMbti like #{boardMbti} order by bno desc limit #{start},#{limit}
+        select * from board_info where
+        <if test="keyword != null">
+            <include refid="searchCondition"/>
+        </if>
+        and boardMbti like #{boardMbti} order by bno desc limit #{start},#{limit}
     </select>
 
-    <select id="mbtiBoardCount" resultType="Integer">
-        select count(bno) from board_info  where boardMbti like #{boardMbti}
+    <select id="mbtiBoardCount"  parameterType="java.util.HashMap" resultType="Integer">
+        select count(bno) from board_info  where
+        <if test="keyword != null">
+            <include refid="searchCondition"/>
+        </if>
+        and boardMbti like #{boardMbti}
     </select>
 
 <!--    <select id="searchCount" parameterType="SearchCondition" resultType="int">

@@ -275,6 +275,20 @@
     </aside>
     <main>
         <h2>${mbtiPaging.boardMbti} 게시글</h2>
+
+        <div class="search_wrap">
+            <form class="search">
+                <select class="search-option" name="option">
+                    <option value="A" <c:out value="${mbtiPaging.option eq 'A'? 'selected' :''}"/> >제목+내용</option>
+                    <option value="T" <c:out value="${mbtiPaging.option eq 'T'? 'selected' : ''}"/> >제목</option>
+                    <option value="W" <c:out value="${mbtiPaging.option eq 'W'? 'selected' : ''}"/> >작성자</option>
+                </select>
+                <input type="text" name="keyword" value="${mbtiPaging.keyword}">
+                <input type="hidden" name="boardMbti" value="${mbtiPaging.boardMbti}">
+                <button class="searchButton" type="submit">검색</button>
+            </form>
+        </div>
+
         <c:if test="${sessionScope.loginId != null}">
             <button onclick="save()" type="button" class="btn-write">글 작성</button> <!-- 버튼 스타일을 적용한 클래스로 변경 -->
         </c:if>
@@ -297,7 +311,7 @@
                     <span onclick="alert('이전 페이지가 없습니다')"> &lt; </span>
                 </c:when>
                 <c:otherwise>
-                    <a href="/board/mbtilist?boardMbti=${mbtiPaging.boardMbti}&mbtiPage=${mbtiPaging.mbtiPage - 1}"> &lt; </a>
+                    <a href="/board/mbtilist?boardMbti=${mbtiPaging.boardMbti}&mbtiPage=${mbtiPaging.mbtiPage - 1}&option=${mbtiPaging.option}&search=${mbtiPaging.keyword}"> &lt; </a>
                 </c:otherwise>
             </c:choose>
 
@@ -307,7 +321,7 @@
                         <span class="selected">${i}</span>
                     </c:when>
                     <c:otherwise>
-                        <a href="/board/mbtilist?boardMbti=${mbtiPaging.boardMbti}&mbtiPage=${i}">${i}</a>
+                        <a href="/board/mbtilist?boardMbti=${mbtiPaging.boardMbti}&mbtiPage=${i}&option=${mbtiPaging.option}&search=${mbtiPaging.keyword}">${i}</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -317,7 +331,7 @@
                     <span onclick="alert('다음 페이지가 없습니다')"> &gt; </span>
                 </c:when>
                 <c:otherwise>
-                    <a href="/board/mbtilist?boardMbti=${mbtiPaging.boardMbti}&mbtiPage=${mbtiPaging.mbtiPage + 1}"> &gt; </a>
+                    <a href="/board/mbtilist?boardMbti=${mbtiPaging.boardMbti}&mbtiPage=${mbtiPaging.mbtiPage + 1}&option=${mbtiPaging.option}&search=${mbtiPaging.keyword}"> &gt; </a>
                 </c:otherwise>
             </c:choose>
         </div>

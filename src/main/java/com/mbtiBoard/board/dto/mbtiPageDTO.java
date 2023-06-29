@@ -12,4 +12,6 @@ public class mbtiPageDTO {
     private int mbtiStartPage; //현재 페이지 기준 시작 페이지 값
     private int mbtiEndPage; // 현재 페이지 기준 마지막 페이지 값
     private String boardMbti=""; //mbti 받아오기
+    private String keyword="";//검색어 받아오기
+    private String option = "";//검색 조건 선택
 }

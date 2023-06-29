@@ -69,7 +69,7 @@ public class BoardService {
         pagingParams.put("option",option);
 
         List<BoardDTO> pagingList = boardRepository.pagingList(pagingParams);
-        System.out.println("pagingList = " + pagingList);
+
         return pagingList;
     }
 
@@ -101,7 +101,7 @@ public class BoardService {
     //카테고리 페이징
     int mbtiPageLimit = 3;// 한 페이지당 보여줄 글 갯수
     int mbtiBlockLimit = 3;// 하단에 보여줄 페이지 번호 갯수
-    public List<BoardDTO> mbtiPagingList(int mbtiPage, String boardMbti) {
+    public List<BoardDTO> mbtiPagingList(int mbtiPage, String boardMbti, String keyword, String option) {
         int mbtiPageStart = ( mbtiPage - 1 ) * mbtiPageLimit;
         System.out.println("mbtiPageStart = " + mbtiPageStart);
         Map<String, Object> pagingParams = new HashMap<>();
@@ -109,6 +109,8 @@ public class BoardService {
         pagingParams.put("start",mbtiPageStart);
         pagingParams.put("limit",mbtiPageLimit);
         pagingParams.put("boardMbti", boardMbti);
+        pagingParams.put("keyword", keyword);
+        pagingParams.put("option", option);
 
 
         List<BoardDTO> mbtiPagingList = boardRepository.mbtiPagingList(pagingParams);
@@ -116,12 +118,18 @@ public class BoardService {
         return mbtiPagingList;
     }
 
-   public mbtiPageDTO mbtiPagingParam(int mbtiPage, String boardMbti) {
+   public mbtiPageDTO mbtiPagingParam(int mbtiPage, String boardMbti, String keyword, String option) {
 
         //전체 글 갯수 조회
-        int mbtiBoardCount = boardRepository.mbtiBoardCount(boardMbti);
-       System.out.println("mbtiBoardCount="+mbtiBoardCount);
-       System.out.println("SmbtiPage = " + mbtiPage + ", SboardMbti = " + boardMbti);
+       Map<String, Object> mbtiCountCondition = new HashMap<>();
+       mbtiCountCondition.put("keyword", keyword);
+       mbtiCountCondition.put("option", option);
+       mbtiCountCondition.put("boardMbti", boardMbti);
+
+        int mbtiBoardCount = boardRepository.mbtiBoardCount(mbtiCountCondition);
+        System.out.println("mbtiCountCondition="+mbtiCountCondition);
+        System.out.println("mbtiBoardCount="+mbtiBoardCount);
+        System.out.println("SmbtiPage = " + mbtiPage + ", SboardMbti = " + boardMbti);
         // 전체 페이지 갯수 계산 (10/3 = 3.333 => 페이지 총 4
         int mbtiMaxPage = (int)(Math.ceil((double) mbtiBoardCount/ mbtiPageLimit));
         // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)
@@ -137,6 +145,9 @@ public class BoardService {
         mbtiPageDTO.setMbtiStartPage(mbtiStartPage);
         mbtiPageDTO.setMbtiEndPage(mbtiEndPage);
         mbtiPageDTO.setBoardMbti(boardMbti);
+        mbtiPageDTO.setKeyword(keyword);
+        mbtiPageDTO.setOption(option);
+
         return mbtiPageDTO;
     }
 

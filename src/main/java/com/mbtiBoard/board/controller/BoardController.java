@@ -17,11 +17,8 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     boolean condition;
-    //게시판 글작성
-/*    @GetMapping("/list")
-    public String boardIndex(){
-        return "board/boardList4";
-    }*/
+
+    //글작성
     @GetMapping("/save")
     public  String boardSaveForm(){
         return "board/boardSave";
@@ -142,15 +139,19 @@ public class BoardController {
     @GetMapping("/mbtilist")
     public String mbtiPaging (Model model,
                               @RequestParam(value = "mbtiPage", required = false , defaultValue = "1") int mbtiPage,
-                              @RequestParam (value = "boardMbti",required = false,defaultValue = "")String boardMbti
+                              @RequestParam (value = "boardMbti",required = false,defaultValue = "")String boardMbti,
+                              @RequestParam (value = "keyword",required = false,defaultValue = "")String keyword,
+                              @RequestParam (value = "option",required = false,defaultValue = "")String option
                               ){
         condition = true;
         System.out.println(" mbtipage = " + mbtiPage);
         System.out.println( " boardMbti = " + boardMbti);
+        System.out.println(" keyword = " + keyword);
+        System.out.println(" option = " + option);
         //해당 페이지에서 보여줄 글 목록
-        List<BoardDTO> mbtiPagingList = boardService.mbtiPagingList(mbtiPage,boardMbti);
+        List<BoardDTO> mbtiPagingList = boardService.mbtiPagingList(mbtiPage,boardMbti,keyword,option);
         System.out.println("mbtiPagingList="+mbtiPagingList);
-        mbtiPageDTO mbtiPageDTO = boardService.mbtiPagingParam(mbtiPage,boardMbti);
+        mbtiPageDTO mbtiPageDTO = boardService.mbtiPagingParam(mbtiPage,boardMbti,keyword,option);
         model.addAttribute("mbtiBoardList",mbtiPagingList);
         model.addAttribute("mbtiPaging", mbtiPageDTO);
         return "board/mbtiBoardList";

@@ -277,9 +277,6 @@
         <div class="search_wrap">
             <form class="search">
                 <select class="search-option" name="option">
-<%--                    <option value="A" ${paging.option || paging.option=='' ? 'selected' :''}>제목+내용</option>
-                    <option value="T" ${paging.option ? 'selected' : ''}>제목</option>
-                    <option value="W" ${paging.option ? 'selected' : ''}>작성자</option>--%>
                     <option value="A" <c:out value="${paging.option eq 'A'? 'selected' :''}"/> >제목+내용</option>
                     <option value="T" <c:out value="${paging.option eq 'T'? 'selected' : ''}"/> >제목</option>
                     <option value="W" <c:out value="${paging.option eq 'W'? 'selected' : ''}"/> >작성자</option>
@@ -288,52 +285,61 @@
                 <button class="searchButton" type="submit">검색</button>
             </form>
         </div>
-
-        <c:if test="${sessionScope.loginId != null}">
-            <button onclick="save()" type="button" class="btn-write">글 작성</button> <!-- 버튼 스타일을 적용한 클래스로 변경 -->
-        </c:if>
-        <c:forEach items="${boardList}" var="board">
-            <div class="board-item">
-                <div class="board-title">
-                    <a href="/board?bno=${board.bno}&page=${paging.page}">${board.boardTitle}</a>
-                </div>
-                <div class="board-details">
-                    게시글 번호: ${board.bno} | 게시글 번호: ${board.boardMbti} | 작성자: ${board.boardId} | 조회수:
-                        ${board.boardHits} | 작성일: ${board.boardCreatedTime}
-                </div>
-            </div>
-        </c:forEach>
-
-        <div class="pagination">
-            <c:choose>
-                <c:when test="${paging.page <= 1}">
-                    <span onclick="alert('이전 페이지가 없습니다')"> &lt; </span>
-                </c:when>
-                <c:otherwise>
-                    <a href="/board/list?page=${paging.page - 1}&option=${paging.option}&search=${paging.keyword}"> &lt; </a>
-                </c:otherwise>
-            </c:choose>
-
-            <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
+<c:choose>
+            <c:when test="${sessionScope.loginId != null}">
+                <button onclick="save()" type="button" class="btn-write">글 작성</button> <!-- 버튼 스타일을 적용한 클래스로 변경 -->
+            </c:when>
+            <c:when test="${paging == null}">
+                <tr height="10">
+                    <td colspan="4">
+                        <b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b>
+                    </td>
+                </tr>
+            </c:when>
+            <c:when test="${paging != null}">
+                <c:forEach items="${boardList}" var="board">
+                    <div class="board-item">
+                        <div class="board-title">
+                            <a href="/board?bno=${board.bno}&page=${paging.page}">${board.boardTitle}</a>
+                        </div>
+                        <div class="board-details">
+                            게시글 번호: ${board.bno} | 게시글 번호: ${board.boardMbti} | 작성자: ${board.boardId} | 조회수:
+                                ${board.boardHits} | 작성일: ${board.boardCreatedTime}
+                        </div>
+                    </div>
+                </c:forEach>
+            </c:when>
+</c:choose>
+            <div class="pagination">
                 <c:choose>
-                    <c:when test="${i eq paging.page}">
-                        <span class="selected">${i}</span>
+                    <c:when test="${paging.page <= 1}">
+                        <span onclick="alert('이전 페이지가 없습니다')"> &lt; </span>
                     </c:when>
                     <c:otherwise>
-                        <a href="/board/list?page=${i}&option=${paging.option}&search=${paging.keyword}">${i}</a>
+                        <a href="/board/list?page=${paging.page - 1}&option=${paging.option}&search=${paging.keyword}"> &lt; </a>
                     </c:otherwise>
                 </c:choose>
-            </c:forEach>
 
-            <c:choose>
-                <c:when test="${paging.page >= paging.maxPage}">
-                    <span onclick="alert('다음 페이지가 없습니다')"> &gt; </span>
-                </c:when>
-                <c:otherwise>
-                    <a href="/board/list?page=${paging.page + 1}&option=${paging.option}&search=${paging.keyword}"> > </a>
-                </c:otherwise>
-            </c:choose>
-        </div>
+                <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
+                    <c:choose>
+                        <c:when test="${i eq paging.page}">
+                            <span class="selected">${i}</span>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/board/list?page=${i}&option=${paging.option}&search=${paging.keyword}">${i}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+
+                <c:choose>
+                    <c:when test="${paging.page >= paging.maxPage}">
+                        <span onclick="alert('다음 페이지가 없습니다')"> &gt; </span>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="/board/list?page=${paging.page + 1}&option=${paging.option}&search=${paging.keyword}"> > </a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
 
     </main>
 
