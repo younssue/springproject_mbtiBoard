@@ -178,16 +178,16 @@
 
         if(condition == false){
             const page = ${page};
-            location.href = "/board/list?page=" + page;
+            location.href = "/board/list?keyword=${keyword}&option=${option}&page=" + page;
         }
         else {
             const mbtiPage = ${mbtiPage};
-            location.href ="/board/mbtilist?boardMbti=${boardMbti}&mbtiPage="+mbtiPage;
+            location.href ="/board/mbtilist?keyword=${keyword}&option=${option}&boardMbti=${boardMbti}&mbtiPage="+mbtiPage;
         }
     }
 
 
-    const updateFn = () => {
+    const updateFn =  () => {
         const bno = '${board.bno}';
         location.href = "/board/update?bno=" + bno;
     }

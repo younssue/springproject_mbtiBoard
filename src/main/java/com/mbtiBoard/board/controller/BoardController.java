@@ -52,7 +52,9 @@ public class BoardController {
                             Model model,
                             HttpSession session,
                             @RequestParam(value = "mbtiPage", required = false , defaultValue = "1") int mbtiPage,
-                            @RequestParam (value = "boardMbti",required = false,defaultValue = "null")String boardMbti){
+                            @RequestParam (value = "boardMbti",required = false,defaultValue = "null")String boardMbti,
+                            @RequestParam (value = "keyword",required = false,defaultValue = "")String keyword,
+                            @RequestParam (value = "option",required = false,defaultValue = "")String option){
         System.out.println("boardBno = " + bno);
         System.out.println( "Detail_page = " + page );
         System.out.println( "mbti_Detail_page = " + mbtiPage );
@@ -75,6 +77,8 @@ public class BoardController {
         //카데고리 mbtiPage 담아 보내기
         model.addAttribute("mbtiPage",mbtiPage);
         model.addAttribute("boardMbti",boardMbti);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("option", option);
         return "board/boardListDetail";
 
     }

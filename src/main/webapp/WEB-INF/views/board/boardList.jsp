@@ -300,7 +300,7 @@
                 <c:forEach items="${boardList}" var="board">
                     <div class="board-item">
                         <div class="board-title">
-                            <a href="/board?bno=${board.bno}&page=${paging.page}">${board.boardTitle}</a>
+                            <a href="/board?bno=${board.bno}&page=${paging.page}&keyword=${paging.keyword}&option=${paging.option}">${board.boardTitle}</a>
                         </div>
                         <div class="board-details">
                             게시글 번호: ${board.bno} | 게시글 번호: ${board.boardMbti} | 작성자: ${board.boardId} | 조회수:

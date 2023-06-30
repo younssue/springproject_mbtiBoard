@@ -296,7 +296,7 @@
 
             <div class="board-item">
                 <div class="board-title">
-                    <a href="/board?boardMbti=${mbtiPaging.boardMbti}&bno=${board.bno}&mbtiPage=${mbtiPaging.mbtiPage}">${board.boardTitle}</a>
+                    <a href="/board?boardMbti=${mbtiPaging.boardMbti}&bno=${board.bno}&mbtiPage=${mbtiPaging.mbtiPage}&keyword=${mbtiPaging.keyword}&option=${mbtiPaging.option}">${board.boardTitle}</a>
                 </div>
                 <div class="board-details">
                     게시글 번호: ${board.bno} | 게시글 번호: ${board.boardMbti} | 작성자: ${board.boardId} | 조회수:

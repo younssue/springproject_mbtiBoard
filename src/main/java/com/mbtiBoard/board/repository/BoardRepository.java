@@ -44,21 +44,14 @@ public class BoardRepository {
     public List<BoardDTO> pagingList(Map<String, Object> pagingParams) {
         return sql.selectList("Board.pagingList",pagingParams);
     }
-    //전체글 갯수
-/*    public int boardCount(String keyword, String option) {
 
-        return sql.selectOne("Board.boardCount",);
-    }*/
 
     //전체글 갯수
     public int boardCount(Map<String, Object> countCondition) {
         return sql.selectOne("Board.boardCount",countCondition);
     }
 
-    //카테고리 별 글 갯수
-    /*public int mbtiBoardCount(String boardMbti) {
-        return sql.selectOne("Board.mbtiBoardCount",boardMbti);
-    }*/
+
 
     //카테고리 게시판 페이징
     public List<BoardDTO> mbtiPagingList(Map<String, Object> pagingParams) {
