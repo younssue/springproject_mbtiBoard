@@ -18,6 +18,7 @@ public class BoardDTO {
     private Timestamp boardCreatedTime;
     private String boardMbti;
     private Integer bno;
+    private int comment_cnt;
 
 
 

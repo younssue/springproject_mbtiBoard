@@ -75,6 +75,12 @@
         and boardMbti like #{boardMbti}
     </select>
 
+    <update id="updateCommentCnt" parameterType="map">
+        update board_info
+        set comment_cnt = comment_cnt + #{cnt}
+        where bno = #{bno}
+    </update>
+
 <!--    <select id="searchCount" parameterType="SearchCondition" resultType="int">
         select count(bno) from board_info where boardTitle like concat('%',#{keyword},'%')
     </select>

@@ -2,6 +2,7 @@ package com.mbtiBoard.board.controller;
 
 import com.mbtiBoard.board.dto.*;
 import com.mbtiBoard.board.service.BoardService;
+import com.mbtiBoard.board.service.CommentService;
 import com.mbtiBoard.member.dto.MemberDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequestMapping("/board")
 public class BoardController {
     private final BoardService boardService;
+    private final CommentService commentService;
     boolean condition;
 
     //글작성
@@ -70,6 +72,9 @@ public class BoardController {
             model.addAttribute("editable", false);
         }
 
+        /* 댓글 목록 가져오기*/
+        List<CommentDTO> commentDTOList = commentService.getList(bno);
+
         model.addAttribute("condition", condition);
         model.addAttribute("board",boardDTO);
         //page값을 requestParam으로 받아와서 model에 담아 Jstl로 넘겨줌
@@ -79,7 +84,8 @@ public class BoardController {
         model.addAttribute("boardMbti",boardMbti);
         model.addAttribute("keyword", keyword);
         model.addAttribute("option", option);
-        return "board/boardListDetail";
+        model.addAttribute("commentList",commentDTOList);
+        return "board/boardListDetail2";
 
     }
 

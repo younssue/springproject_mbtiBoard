@@ -336,77 +336,11 @@
     <button onclick="updateFn()">수정</button>
     <button onclick="deleteFn()">삭제</button>
 </c:if>
-    <div id="commentList">
+    comment:<input type="text" name="comment"><br>
+    <button id="sendBtn" type="button">댓글작성</button>
+    <button id="modBtn" type="button">댓글수정</button>
 
-
-        <%--<c:forEach items="${commentList}" var="commentList">
-            <li class="comment-item" data-cno="${commentList.cno}" data-bno="${commentList.bno}">
-                    &lt;%&ndash;               <span class="comment-img">
-                                       <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                   </span>&ndash;%&gt;
-                <div class="comment-area">
-                    <div class="commenter">${commentList.memberId}</div>
-                    <div class="comment-content">${commentList.commentContents}</div>
-                    <div class="comment-bottom">
-                        <span class="up_date">${commentList.commentCreatedTime}</span>
-                            &lt;%&ndash;<a href="#" class="btn-write"  data-cno="${commentList.cno}" data-bno="${commentList.bno}" data-pcno="">답글쓰기</a>
-                            <a href="#" class="btn-modify" data-cno="${commentList.cno}" data-bno="${commentList.bno}" data-pcno="">수정</a>
-                            <a href="#" class="btn-delete" data-cno="${commentList.cno}" data-bno="${commentList.bno}" data-pcno="">삭제</a>&ndash;%&gt;
-                        <button class = "delBtn"> 삭제 </button>
-                        <button class = "modBtn"> 수정 </button>
-                    </div>
-                </div>
-            </li>
-        </c:forEach>--%>
-
-
-
-        <div id="comment-writebox">
-            <div class="commenter commenter-writebox">${commentList.memberId}</div>
-            <div class="comment-writebox-content">
-                <textarea name="comment"  cols="30" rows="3" placeholder="댓글을 남겨보세요"></textarea>
-            </div>
-            <div id="comment-writebox-bottom">
-                <div class="register-box">
-                    <%-- <a href="#" class="sendBtn" id="btn-write-comment">등록</a>--%>
-                    <button id="sendBtn" type="button">댓글작성</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <%--    <div id="reply-writebox">
-            <div class="commenter commenter-writebox">${}</div>
-            <div class="reply-writebox-content">
-                <textarea name="" id="" cols="30" rows="3" placeholder="댓글을 남겨보세요"></textarea>
-            </div>
-            <div id="reply-writebox-bottom">
-                <div class="register-box">
-                    <a href="#" class="btn" id="btn-write-reply">등록</a>
-                    <a href="#" class="btn" id="btn-cancel-reply">취소</a>
-                </div>
-            </div>
-        </div>--%>
-    <div id="modalWin" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>
-            <h2> | 댓글 수정</h2>
-            <div id="modify-writebox">
-                <div class="commenter commenter-writebox"></div>
-                <div class="modify-writebox-content">
-                    <textarea name="" id="" cols="30" rows="5" placeholder="댓글을 남겨보세요"></textarea>
-                </div>
-                <div id="modify-writebox-bottom">
-                    <div class="register-box">
-                        <%--<a href="#" class="btn" id="btn-write-modify">등록</a>--%>
-                        <button id="modBtn" type="button">댓글수정</button>
-                    </div>
-                </div>
-            </div>
-            </p>
-        </div>
-    </div>
+    <div id="commentList"></div>
 
 </div>
 </main>
@@ -444,23 +378,24 @@
     }
 
     /*댓글*/
-    let bno = 20;
+    let bno ='${board.bno}';
 
     let showList =function (bno){
         $.ajax({
             type:'GET',       // 요청 메서드
             url: '/comment?bno='+bno,  // 요청 URI //url수정이 필요할듯
-
+            //headers : { "content-type": "application/json"}, // 요청 헤더
+            //dataType : 'text', // 전송받을 데이터의 타입 - 생략하면 json으로 기본설정
+            //data : JSON.stringify(person),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
             success : function(result){
-
+                //person2 = JSON.parse(result);    // 서버로부터 응답이 도착하면 호출될 함수
+                //alert("received="+result);       // result는 서버가 전송한 데이터
                 $("#commentList").html(toHTML(result));
-
             },
             error   : function(){ alert("error") } // 에러가 발생했을 때, 호출될 함수
-        });
+        }); // $.ajax()
 
     }
-
     $(document).ready(function() {
         //페이지 나올때 부터 아예 다 보이게 하기 위해서
         //위에서 선언
@@ -468,12 +403,12 @@
 
         //글작성
         $("#sendBtn").click(function () {
-            let comment = $("textarea[name=comment]").val();
+            let comment = $("input[name=comment]").val();
 
             //comment가 공백이면 alert
             if (comment.trim() == '') {
                 alert("댓글을 입력해주세요");
-                $("textarea[name=comment]").focus()
+                $("input[name=comment]").focus()
                 return;
             }
 
@@ -501,12 +436,12 @@
         $("#modBtn").click(function () {
             let cno = $(this).attr("data-cno");
 
-            let comment = $("textarea[name=comment]").val();
+            let comment = $("input[name=comment]").val();
 
             //comment가 공백이면 alert
             if (comment.trim() == '') {
                 alert("댓글을 입력해주세요");
-                $("textarea[name=comment]").focus()
+                $("input[name=comment]").focus()
                 return;
             }
 
@@ -569,39 +504,36 @@
     $("#commentList").on("click", ".modBtn", function () {
         let cno = $(this).parent().attr("data-cno");
         //let bno = $(this).parent().attr("data-bno");
-        let comment = $("div.comment-content", $(this).parent()).text();
+        let comment = $("span.commentContents", $(this).parent()).text();
         //계속 comment 값을 전체 댓글내용을 불러 왔던 이유 :parents()로 되어있었음..
 
         // span태그 안에 있는 commentContents 내용을 가져오기
         // cno해당 commentContents를 가져오기 위해선 span의 부모인li의 text를 가져온다
 
         //1.comment 의 내용을 input에 뿌려주기
-        $("textarea[name=comment]").val(comment);
+        $("input[name=comment]").val(comment);
         //2.cno전달하기
         $("#modBtn").attr("data-cno", cno);
 
     });
 
+    //댓글 리스트 모양 (삭제, 수정버튼)
+    let toHTML = function (comment) {
+        let tmp = "<ul>";
+        comment.forEach(function (comment) {
+            tmp += '<li data-cno=' + comment.cno
+            tmp += ' data-pcno=' + comment.pcno
+            tmp += ' data-bno=' + comment.bno + '>'
+            tmp += 'commenter = <span class ="memberId">' + comment.memberId + '</span>'
+            tmp += 'commentContents= <span class="commentContents">' + comment.commentContents + '</span>'
+            tmp += ' up- date = ' + comment.commentCreatedTime
+            tmp += '<button class = "delBtn"> 삭제 </button> '
+            tmp += '<button class = "modBtn"> 수정 </button> '
+            tmp += '</li>'
 
-    //댓글 리스트 모양
-    let toHTML = function(commentList) {
-        let html = "";
+        })
+        return tmp + "</ul>";
 
-        commentList.forEach(function(comment) {
-            html += '<li class="comment-item" data-cno="' + comment.cno + '" data-bno="' + comment.bno + '">';
-            html += '<div class="comment-area">';
-            html += '<div class="commenter">' + comment.memberId + '</div>';
-            html += '<div class="comment-content">' + comment.commentContents + '</div>';
-            html += '<div class="comment-bottom">';
-            html += '<span class="up_date">' + comment.commentCreatedTime + '</span>';
-            html += '<button class="delBtn">삭제</button>';
-            html += '<button class="modBtn">수정</button>';
-            html += '</div>';
-            html += '</div>';
-            html += '</li>';
-        });
-
-        return html;
     }
 </script>
 </body>

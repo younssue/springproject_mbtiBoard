@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,5 +62,12 @@ public class BoardRepository {
     //카테고리 별 글 갯수
     public int mbtiBoardCount(Map<String, Object> mbtiCountCondition) {
         return sql.selectOne("Board.mbtiBoardCount",mbtiCountCondition);
+    }
+
+    public int updateCommentCnt(Integer bno, int cnt) {
+        Map map = new HashMap();
+        map.put("cnt",cnt);
+        map.put("bno",bno);
+        return sql.update("Board.updateCommentCnt",map);
     }
 }

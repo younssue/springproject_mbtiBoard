@@ -252,22 +252,22 @@
                 <li class="mbti-menu">
                     <a class="mbti-menu-title">MBTI별 글 보기</a>
                     <div class="mbti-menu-content">
-                        <a href="#">ISTJ</a>
-                        <a href="#">ISTP</a>
-                        <a href="#">ISFJ</a>
-                        <a href="#">ISFP</a>
-                        <a href="#">INFJ</a>
-                        <a href="#">INFP</a>
-                        <a href="#">INTJ</a>
-                        <a href="#">INTP</a>
-                        <a href="#">ESTJ</a>
-                        <a href="#">ESTP</a>
-                        <a href="#">ESFJ</a>
-                        <a href="#">ESFP</a>
-                        <a href="#">ENFJ</a>
-                        <a href="#">ENFP</a>
-                        <a href="#">ENTJ</a>
-                        <a href="#">ENTP</a>
+                        <a href="/board/mbtilist?boardMbti=ISTJ">ISTJ</a>
+                        <a href="/board/mbtilist?boardMbti=ISTP">ISTP</a>
+                        <a href="/board/mbtilist?boardMbti=ISFJ">ISFJ</a>
+                        <a href="/board/mbtilist?boardMbti=ISFP">ISFP</a>
+                        <a href="/board/mbtilist?boardMbti=INFJ">INFJ</a>
+                        <a href="/board/mbtilist?boardMbti=INFP">INFP</a>
+                        <a href="/board/mbtilist?boardMbti=INTJ">INTJ</a>
+                        <a href="/board/mbtilist?boardMbti=INTP">INTP</a>
+                        <a href="/board/mbtilist?boardMbti=ESTJ">ESTJ</a>
+                        <a href="/board/mbtilist?boardMbti=ESTP">ESTP</a>
+                        <a href="/board/mbtilist?boardMbti=ESFJ">ESFJ</a>
+                        <a href="/board/mbtilist?boardMbti=ESFP">ESFP</a>
+                        <a href="/board/mbtilist?boardMbti=ENFJ">ENFJ</a>
+                        <a href="/board/mbtilist?boardMbti=ENFP">ENFP</a>
+                        <a href="/board/mbtilist?boardMbti=ENTJ">ENTJ</a>
+                        <a href="/board/mbtilist?boardMbti=ENTP">ENTP</a>
                     </div>
                 </li>
             </ul>

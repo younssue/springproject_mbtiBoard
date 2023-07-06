@@ -251,21 +251,21 @@
                     <a class="mbti-menu-title">MBTI별 글 보기</a>
                     <div class="mbti-menu-content">
                         <a href="/board/mbtilist?boardMbti=ISTJ">ISTJ</a>
-                        <a href="#">ISTP</a>
-                        <a href="#">ISFJ</a>
-                        <a href="#">ISFP</a>
-                        <a href="#">INFJ</a>
-                        <a href="#">INFP</a>
-                        <a href="#">INTJ</a>
-                        <a href="#">INTP</a>
-                        <a href="#">ESTJ</a>
-                        <a href="#">ESTP</a>
-                        <a href="#">ESFJ</a>
-                        <a href="#">ESFP</a>
-                        <a href="#">ENFJ</a>
-                        <a href="#">ENFP</a>
-                        <a href="#">ENTJ</a>
-                        <a href="#">ENTP</a>
+                        <a href="/board/mbtilist?boardMbti=ISTP">ISTP</a>
+                        <a href="/board/mbtilist?boardMbti=ISFJ">ISFJ</a>
+                        <a href="/board/mbtilist?boardMbti=ISFP">ISFP</a>
+                        <a href="/board/mbtilist?boardMbti=INFJ">INFJ</a>
+                        <a href="/board/mbtilist?boardMbti=INFP">INFP</a>
+                        <a href="/board/mbtilist?boardMbti=INTJ">INTJ</a>
+                        <a href="/board/mbtilist?boardMbti=INTP">INTP</a>
+                        <a href="/board/mbtilist?boardMbti=ESTJ">ESTJ</a>
+                        <a href="/board/mbtilist?boardMbti=ESTP">ESTP</a>
+                        <a href="/board/mbtilist?boardMbti=ESFJ">ESFJ</a>
+                        <a href="/board/mbtilist?boardMbti=ESFP">ESFP</a>
+                        <a href="/board/mbtilist?boardMbti=ENFJ">ENFJ</a>
+                        <a href="/board/mbtilist?boardMbti=ENFP">ENFP</a>
+                        <a href="/board/mbtilist?boardMbti=ENTJ">ENTJ</a>
+                        <a href="/board/mbtilist?boardMbti=ENTP">ENTP</a>
                     </div>
                 </li>
             </ul>
@@ -285,12 +285,14 @@
                 <button class="searchButton" type="submit">검색</button>
             </form>
         </div>
-<c:choose>
+        <c:choose>
             <c:when test="${sessionScope.loginId != null}">
                 <button onclick="save()" type="button" class="btn-write">글 작성</button> <!-- 버튼 스타일을 적용한 클래스로 변경 -->
             </c:when>
+        </c:choose>
+        <%--<c:choose>
             <c:when test="${paging == null}">
-                <tr height="10">
+               <tr height="10">
                     <td colspan="4">
                         <b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b>
                     </td>
@@ -309,7 +311,23 @@
                     </div>
                 </c:forEach>
             </c:when>
-</c:choose>
+        </c:choose>--%>
+
+
+                <c:forEach items="${boardList}" var="board">
+                    <div class="board-item">
+                        <div class="board-title">
+                            <a href="/board?bno=${board.bno}&page=${paging.page}&keyword=${paging.keyword}&option=${paging.option}">${board.boardTitle}</a>
+                        </div>
+                        <div class="board-details">
+                            게시글 번호: ${board.bno} | 게시글 번호: ${board.boardMbti} | 작성자: ${board.boardId} | 조회수:
+                                ${board.boardHits} | 작성일: ${board.boardCreatedTime}
+                        </div>
+                    </div>
+                </c:forEach>
+
+
+
             <div class="pagination">
                 <c:choose>
                     <c:when test="${paging.page <= 1}">
