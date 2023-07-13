@@ -73,7 +73,10 @@ public class BoardController {
         }
 
         /* 댓글 목록 가져오기*/
-        List<CommentDTO> commentDTOList = commentService.getList(bno);
+//        List<CommentDTO> commentDTOList = commentService.getList(bno);
+//        System.out.printf("commentDTOList="+ commentDTOList);
+
+        List<CommentDTO> commentDTO =  commentService.getList(bno);
 
         model.addAttribute("condition", condition);
         model.addAttribute("board",boardDTO);
@@ -84,7 +87,8 @@ public class BoardController {
         model.addAttribute("boardMbti",boardMbti);
         model.addAttribute("keyword", keyword);
         model.addAttribute("option", option);
-        model.addAttribute("commentList",commentDTOList);
+       // model.addAttribute("commentList",commentDTOList);
+        model.addAttribute("comment", commentDTO);
         return "board/boardListDetail2";
 
     }

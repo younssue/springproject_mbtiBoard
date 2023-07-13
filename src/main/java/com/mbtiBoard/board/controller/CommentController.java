@@ -24,8 +24,8 @@ public class CommentController {
     public ResponseEntity<String>  commentSave(@RequestBody CommentDTO commentDTO, HttpSession session,
                                      @RequestParam("bno") Integer bno){
         //댓글 작성자 = 로그인한 유저
-        String memberId = (String) session.getAttribute("loginId");
-        //String memberId = "yy";
+        //String memberId = (String) session.getAttribute("loginId");
+        String memberId = "yy";
         commentDTO.setMemberId(memberId);
         commentDTO.setBno(bno);
         System.out.printf("commentDTO =", commentDTO);
@@ -34,10 +34,10 @@ public class CommentController {
             if(commentService.commentSave(commentDTO)!=1){
                 throw new Exception("Write failed");
             }
-            return new ResponseEntity<String>("WRT_ok", HttpStatus.OK);
+            return new ResponseEntity<String>("write success", HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<String>("WRT_ERR", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("write failed", HttpStatus.BAD_REQUEST);
         }
 /*        long saveResult = commentService.commentSave(commentDTO);
 
@@ -70,8 +70,8 @@ public class CommentController {
     @PatchMapping("/comment/{cno}") // /comment/20
     public ResponseEntity<String> commentModify(@PathVariable Integer cno, @RequestBody CommentDTO commentDTO,
                                                 HttpSession session){
-        String memberId = (String) session.getAttribute("loginId");
-        //String memberId = "yy";
+        //String memberId = (String) session.getAttribute("loginId");
+        String memberId = "yy";
         commentDTO.setMemberId(memberId);
         commentDTO.setCno(cno);
         System.out.printf("m_commentDTO="+ commentDTO);
@@ -92,8 +92,8 @@ public class CommentController {
     public ResponseEntity<String> commentRemove(@PathVariable Integer cno, Integer bno, HttpSession session
                                                 //@RequestParam("bno") Integer bno
     ){
-        String memberId = (String) session.getAttribute("loginId");
-        //String memberId = "yy";
+        //String memberId = (String) session.getAttribute("loginId");
+        String memberId = "yy";
         try {
             int rowCnt = commentService.commentRemove(cno,bno,memberId);
             if(rowCnt != 1)

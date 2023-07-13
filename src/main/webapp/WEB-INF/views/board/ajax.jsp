@@ -11,6 +11,10 @@ comment:<input type="text" name="comment"><br>
 <button id="modBtn" type="button">댓글수정</button>
 <h2>Data From Server :</h2>
 <div id="commentList"></div>
+<div id = "replyForm" style="display: none">
+  <input type="text" name="replyComment">
+  <button id="wrtRepBtn" type="button">등록</button>
+</div>
 <script>
   let bno =20;
 
@@ -134,6 +138,43 @@ comment:<input type="text" name="comment"><br>
     });
 
 
+  //답글달기
+  $("#wrtRepBtn").click(function () {
+    let comment = $("input[name=replyComment]").val();
+    let pcno = $("#replyForm").parent().attr("data-pcno");
+
+    //comment가 공백이면 alert
+    if (comment.trim() == '') {
+      alert("댓글을 입력해주세요");
+      $("input[name=replyComment]").focus()
+      return;
+    }
+
+    $.ajax({
+      type: 'POST',       // 요청 메서드
+      url: '/comment?bno=' + bno,  // 요청 URI //url수정이 필요할듯
+      headers: {"content-type": "application/json"}, // 요청 헤더
+      //dataType : 'text', // 전송받을 데이터의 타입 - 생략하면 json으로 기본설정
+      data: JSON.stringify({pcno: pcno,bno: bno, commentContents: comment}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요, DB와 같은 name사용할 것(DB:내가 string값으로 준 변수)
+      success: function (result) {
+        //person2 = JSON.parse(result);    // 서버로부터 응답이 도착하면 호출될 함수
+        //alert("received="+result);       // result는 서버가 전송한 데이터
+        alert(result);
+        showList(bno);
+      },
+      error: function () {
+        alert("error")
+      } // 에러가 발생했을 때, 호출될 함수
+    });
+    $("#replyForm").css("display","none")
+    $("input[name=replyComment]").val('')
+    $("#replyForm").appendTo("body");
+  });
+
+
+
+
+//화면 출력 부분
     //댓글 수정
     $("#commentList").on("click", ".modBtn", function () {
       let cno = $(this).parent().attr("data-cno");
@@ -151,6 +192,19 @@ comment:<input type="text" name="comment"><br>
 
     });
 
+
+
+    //답글 달기
+  $("#commentList").on("click", ".replyBtn", function () {
+    //1.replyForm을 옮기고
+    //this->1i태그 안에
+    $("#replyForm").appendTo($(this).parent());
+
+    //2. 답글을 입력할 폼을 보여주기
+    //block이 none이된 입력폼을 보여줌
+    $("#replyForm").css("display","block");
+
+  });
     //댓글 리스트 모양 (삭제, 수정버튼)
     let toHTML = function (comment) {
       let tmp = "<ul>";
@@ -158,11 +212,14 @@ comment:<input type="text" name="comment"><br>
         tmp += '<li data-cno=' + comment.cno
         tmp += ' data-pcno=' + comment.pcno
         tmp += ' data-bno=' + comment.bno + '>'
+      if(comment.cno != comment.pcno)
+        tmp += 'ㄴ'
         tmp += 'memberId = <span class ="memberId">' + comment.memberId + '</span>'
         tmp += 'commentContents= <span class="commentContents">' + comment.commentContents + '</span>'
         tmp += ' up- date = ' + comment.commentCreatedTime
         tmp += '<button class = "delBtn"> 삭제 </button> '
         tmp += '<button class = "modBtn"> 수정 </button> '
+        tmp += '<button class = "replyBtn"> 답글 </button> '
         tmp += '</li>'
 
       })

@@ -8,8 +8,8 @@
     </insert>
 
     <select id="commentSelectAll" parameterType="int" resultType="comment">
-        select cno,bno,memberID,commentCreatedTime,commentContents,pcno,commentModifiedTime from comment_info
-        where bno =#{bno} order by commentCreatedTime asc, cno asc
+        select cno,bno,memberID,commentCreatedTime,commentContents,ifnull(pcno,cno) as pcno from comment_info
+        where bno =#{bno} order by pcno asc,cno asc;
     </select>
 
     <select id="commentSelect" parameterType="int" resultType="comment">
