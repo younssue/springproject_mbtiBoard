@@ -115,5 +115,12 @@ public class MemberController {
         String checkResult = memberService.idCheck(memberId);
         return  checkResult; //String checkResult는 memberSave.jsp ajax success: function(res) 의 res값으로 들어온다
     }
+
+
+    @GetMapping("/myPage")
+    public String myPage (HttpSession session){
+        String loginId = (String) session.getAttribute("loginId");
+        return "member/myPage";
+    }
 }
 

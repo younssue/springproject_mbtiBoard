@@ -34,7 +34,8 @@ public class BoardController {
 
         int boardSaveResult = boardService.boardSave(boardDTO);
         if(boardSaveResult > 0){
-            return "redirect:/board/list";
+//            return "redirect:/list";
+            return "redirect:/";
         }else{
             return "board/boardSave";
         }
@@ -128,24 +129,24 @@ public class BoardController {
     //board/paging?page=1
     //page=1이 필수로 있어야 한다는 것은 아니다 (required = false)
     //하지만 page=1 로 default값을 가진다 ( defaultValue = "1")
-    @GetMapping("/list")
-    public String paging (Model model,
-                          @RequestParam(value = "page", required = false , defaultValue = "1") int page,
-                          @RequestParam (value = "keyword",required = false,defaultValue = "")String keyword,
-                          @RequestParam (value = "option",required = false,defaultValue = "")String option
-                          ){
-        System.out.println(" page = " + page);
-        System.out.println(" keyword = " + keyword);
-        System.out.println(" option = " + option);
-        condition = false;
-        //해당 페이지에서 보여줄 글 목록
-        List<BoardDTO> pagingList = boardService.pagingList(page,keyword,option);
-        System.out.println("pagingList="+pagingList);
-        PageDTO pageDTO = boardService.pagingParam(page,keyword,option);
-        model.addAttribute("boardList",pagingList);
-        model.addAttribute("paging", pageDTO);
-        return "board/boardList";
-    }
+//    @GetMapping("/list")
+//    public String paging (Model model,
+//                          @RequestParam(value = "page", required = false , defaultValue = "1") int page,
+//                          @RequestParam (value = "keyword",required = false,defaultValue = "")String keyword,
+//                          @RequestParam (value = "option",required = false,defaultValue = "")String option
+//                          ){
+//        System.out.println(" page = " + page);
+//        System.out.println(" keyword = " + keyword);
+//        System.out.println(" option = " + option);
+//        condition = false;
+//        //해당 페이지에서 보여줄 글 목록
+//        List<BoardDTO> pagingList = boardService.pagingList(page,keyword,option);
+//        System.out.println("pagingList="+pagingList);
+//        PageDTO pageDTO = boardService.pagingParam(page,keyword,option);
+//        model.addAttribute("boardList",pagingList);
+//        model.addAttribute("paging", pageDTO);
+//        return "board/boardList";
+//    }
 
 
 
@@ -153,7 +154,7 @@ public class BoardController {
     @GetMapping("/mbtilist")
     public String mbtiPaging (Model model,
                               @RequestParam(value = "mbtiPage", required = false , defaultValue = "1") int mbtiPage,
-                              @RequestParam (value = "boardMbti",required = false,defaultValue = "")String boardMbti,
+                              @RequestParam (value = "boardMbti",required = false,defaultValue = "ENFJ")String boardMbti,
                               @RequestParam (value = "keyword",required = false,defaultValue = "")String keyword,
                               @RequestParam (value = "option",required = false,defaultValue = "")String option
                               ){
@@ -168,7 +169,7 @@ public class BoardController {
         mbtiPageDTO mbtiPageDTO = boardService.mbtiPagingParam(mbtiPage,boardMbti,keyword,option);
         model.addAttribute("mbtiBoardList",mbtiPagingList);
         model.addAttribute("mbtiPaging", mbtiPageDTO);
-        return "board/mbtiBoardList";
+        return "board/mbtiBoardList2";
     }
 
 }

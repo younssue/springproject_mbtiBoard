@@ -1,0 +1,328 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@500;700&display=swap');
+
+
+/* reset */
+*{
+    padding: 0;
+    margin: 0;
+
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td{
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    /* 부모의 속성을 받게함 */
+    color: inherit;
+    /* a태그 밑줄 없애기 */
+    text-decoration: none;
+}
+h1,h2,h3,h4,h5,h6{
+    font-weight: 700;
+    /* 부모의 속성을 받게함 */
+    font-size: inherit;
+}
+
+/* font-family: 'Montserrat', sans-serif; */
+body{
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.wrap{
+    width: 100%;
+    overflow: hidden;
+}
+
+/* header */
+header{
+    width: 100%;
+    /* position:fixed로 줄 경우 위치를 잡아줘야한다
+        top,left
+    */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* 헤더가 메인보다 우선적으로, 숫자가 클수록 우선순위 커짐*/
+    z-index: 100;
+    background: #213135;
+    padding: 40px 0 25px;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    /* 대문자 */
+    text-transform: uppercase;
+}
+
+header .inner{
+    width: 90%;
+    /* 센터로 위치 */
+    margin: 0 auto;
+}
+
+header .inner .logo{
+    display: inline-block;
+    font-size: 25px;
+    /* 자간 */
+    letter-spacing: 1px;
+}
+
+header .inner .gnbBtn{
+    display: block;
+    float: left;
+    width: 32px;
+    height: 12px;
+    position: relative;
+}
+
+header .inner .gnbBtn span{
+    /* background: #fff;  */
+    width: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    margin-top: 5px;
+}
+
+header .inner .gnbBtn span.a{
+
+    top: 0;
+}
+
+header .inner .gnbBtn span.b{
+    bottom: 0;
+}
+
+header .inner .login{
+    display: block;
+    float: right;
+    margin-top: 10px;
+
+}
+
+/* contents */
+
+.contents{
+    background:#fff;
+}
+.contents .visual{
+    /* 가로 세로 100퍼센트 찰 수 있도록 */
+    width: 100vw;
+    height: 100vh;
+    /* 안에 비디오 포지션을 줄 수 있도록 relative */
+    position: relative;
+}
+
+.contents .visual .mbtiboard{
+    width: 100vw;
+    height: 100vh;
+    /*
+    object-fit: img나 video등의 콘텐츠 크기 맞추는 방식
+    cover: 가로 세로비를 유지하면서 요소 콘텐츠 박스를 가득채움, 가로세로비가 맞지 않을 경우
+    객체일부가 잘려나감
+     */
+    object-fit: cover;
+    position: absolute;
+    left:0;
+    top:0;
+
+}
+.contents .visual .title{
+    width: 100%;
+    /* background: red; */
+    position: absolute;
+    left: 0;
+    top:50%;
+    /* transform: translateY(-50%)
+        top:50% 위치에 있던 곳에서 그 선의 반만큼 위로 올라가 센터가됨 */
+    transform: translateY(-50%);
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    font-size: 70px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+
+/* section 안에서 공통 부분  */
+
+/* inner=> 전체 레이아웃 넓이 공통부분 */
+.inner{
+    width: 700px;
+    margin: 0 auto;
+}
+
+
+/* text => 텍스트 공통 */
+.text .title{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+.text p{
+    font-size: 35px;
+    /* 줄간격 */
+    line-height: 1.2;
+    margin: 40px 0;
+}
+
+
+/* .text a{
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid #333;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+} */
+
+/* .text a:hover,.text a:focus{
+    border:1px solid transparent;
+    border-bottom: 1px solid #333;
+    border-radius: 0;
+    padding: 5px 18px;
+    transition: all 0.2s;
+    background: #fff;
+} */
+
+
+/* section.approach */
+section.approach{
+    padding: 100px 0;
+}
+
+section.approach .inner{
+
+    width: 950px;
+    position: relative;
+}
+
+section.approach .inner .list{
+    width: 25%;
+    /* li,ul remove dot */
+    list-style-type: none;
+}
+
+section.approach .inner .list li{
+    margin-bottom: 30px;
+}
+
+section.approach .inner .list li:last-child{
+    margin-bottom: 0;
+}
+
+section.approach .inner .list li a{
+    display: block;
+    width: 100%;
+    /*height: 100%;*/
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+section.approach .inner .list li a img{
+    width: 100%;
+}
+
+section.approach .inner .fix{
+    position: absolute;
+    width: 45%;
+    height: 100%;
+
+    right: 0;
+    top:0;
+}
+
+section.approach .inner .fix .text{
+    position: absolute;
+    bottom: 10%;
+}
+
+section.approach .inner .fix .text.on{
+    position: fixed;
+    bottom: 50%;
+    transform: translateY(50%);
+}
+
+section.approach .inner .fix .text .list{
+    width: 400px;
+    /* background: red; */
+
+    list-style: none;
+    border: 0 solid #e5e7eb;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    margin-top: 20px;
+
+}
+
+section.approach .inner .fix .text .list li{
+    display: list-item;
+    box-sizing: border-box;
+    border-bottom: 2px solid #e5e7eb;
+    padding: 10px 10px 10px 10px;
+
+
+}
+
+section.approach .inner .fix .text .mbtiList .board-detail{
+    font-size: 11px;
+    font-family: sans-serif;
+}
+
+section.approach .inner .fix .text .mbtiList .boardTitle{
+    font-size: 15px;
+    font-family: sans-serif;
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+
+section.approach .inner .fix .text .mbtiList .boardTitle:hover,
+.boardTitle:focus{
+    color: cornflowerblue;
+    font-weight: bold;
+}
+
+section.approach .inner .fix .text .write {
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid #333;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+section.approach .inner .fix .text .write:hover,
+.write:focus{
+    border:1px solid transparent;
+    border-bottom: 1px solid #333;
+    border-radius: 0;
+    padding: 5px 18px;
+    transition: all 0.2s;
+    background: #fff;
+}
