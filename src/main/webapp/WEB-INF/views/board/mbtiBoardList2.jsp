@@ -86,7 +86,7 @@
                       ${board.boardId} | ${board.boardCreatedTime} | hits: ${board.boardHits} |  번호:${board.bno} |${board.boardMbti}
                   </div>
                   <div class="boardTitle">
-                    <a href="/board?boardMbti=${mbtiPaging.boardMbti}&bno=${board.bno}&mbtiPage=${mbtiPaging.mbtiPage}&keyword=${mbtiPaging.keyword}&option=${mbtiPaging.option}"> ${board.boardTitle} </a>
+                    <a href="/board?boardMbti=${mbtiPaging.boardMbti}&bno=${board.bno}&mbtiPage=${mbtiPaging.mbtiPage}&keyword=${mbtiPaging.keyword}&option=${mbtiPaging.option}&condition=${condition}"> ${board.boardTitle} </a>
                   </div>
                 </div>
               </li>

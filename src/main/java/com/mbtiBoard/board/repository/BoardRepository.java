@@ -70,4 +70,12 @@ public class BoardRepository {
         map.put("bno",bno);
         return sql.update("Board.updateCommentCnt",map);
     }
+
+    public List<BoardDTO> myListPagingList(Map<String, Object> pagingParams) {
+        return sql.selectList("Board.myListPagingList", pagingParams);
+    }
+
+    public int myListBoardCount(Map<String, Object> myListCountCondition) {
+        return sql.selectOne("Board.myListBoardCount", myListCountCondition);
+    }
 }

@@ -3,6 +3,7 @@ package com.mbtiBoard.board.service;
 import com.mbtiBoard.board.dto.BoardDTO;
 import com.mbtiBoard.board.dto.PageDTO;
 import com.mbtiBoard.board.dto.mbtiPageDTO;
+import com.mbtiBoard.board.dto.myListPageDTO;
 import com.mbtiBoard.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class BoardService {
     }
 
 //    //글 목록 불러오기
-//    public List<BoardDTO> findAll() {
+ //    public List<BoardDTO> findAll() {
 //        return boardRepository.findAll();
 //    }
 
@@ -62,6 +63,10 @@ public class BoardService {
 
         int pageStart = ( page - 1 ) * pageLimit;
         System.out.println("pageStart = " + pageStart);
+
+        //댓글 갯수
+        //int commentCnt =  boardRepository.updateCommentCnt(bno,cnt);
+
         Map<String, Object> pagingParams = new HashMap<>();
         pagingParams.put("start",pageStart);
         pagingParams.put("limit",pageLimit);
@@ -152,4 +157,56 @@ public class BoardService {
     }
 
 
+    int myListPageLimit = 3;// 한 페이지당 보여줄 글 갯수
+    int myListBlockLimit = 3;// 하단에 보여줄 페이지 번호 갯수
+    public List<BoardDTO> myListPagingList(int myListPage, String keyword, String option, String boardId ) {
+        int myListPageStart = ( myListPage - 1 ) * myListPageLimit;
+        System.out.println("myListPageStart = " + myListPageStart);
+        System.out.println("myListPageLimit = " + myListPageLimit);
+
+        Map<String, Object> pagingParams = new HashMap<>();
+
+        pagingParams.put("start",myListPageStart);
+        pagingParams.put("limit",myListPageLimit);
+
+        pagingParams.put("keyword", keyword);
+        pagingParams.put("option", option);
+        pagingParams.put("boardId",boardId);
+
+
+        List<BoardDTO> myListPagingList = boardRepository.myListPagingList(pagingParams);
+        System.out.println("myListPagingList = " + myListPagingList);
+        return myListPagingList;
+    }
+
+    public myListPageDTO myListPagingParam(int myListPage, String keyword, String option, String boardId) {
+        Map<String, Object> myListCountCondition = new HashMap<>();
+        myListCountCondition.put("keyword", keyword);
+        myListCountCondition.put("option", option);
+        myListCountCondition.put("boardId",boardId);
+
+        int myListBoardCount = boardRepository.myListBoardCount(myListCountCondition);
+        System.out.println("myListCountCondition="+myListCountCondition);
+        System.out.println("myListBoardCount="+myListBoardCount);
+        System.out.println("myListPage = " + myListPage );
+        // 전체 페이지 갯수 계산 (10/3 = 3.333 => 페이지 총 4
+        int myListMaxPage = (int)(Math.ceil((double) myListBoardCount/ myListPageLimit));
+        // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)
+        int myListStartPage = (((int)(Math.ceil((double) myListPage / myListBlockLimit))) - 1) * myListBlockLimit + 1;
+        // 끝 페이지 값 계산(3,6,9,12, ~~~~)
+        int myListEndPage = myListStartPage + myListBlockLimit - 1;
+        if (myListEndPage > myListMaxPage) {
+            myListEndPage = myListMaxPage;
+        }
+        myListPageDTO myListPageDTO = new myListPageDTO();
+        myListPageDTO.setMyListPage(myListPage);
+        myListPageDTO.setMyListMaxPage(myListMaxPage);
+        myListPageDTO.setMyListStartPage(myListStartPage);
+        myListPageDTO.setMyListEndPage(myListEndPage);
+        myListPageDTO.setKeyword(keyword);
+        myListPageDTO.setOption(option);
+        myListPageDTO.setBoardId(boardId);
+
+        return myListPageDTO;
+    }
 }

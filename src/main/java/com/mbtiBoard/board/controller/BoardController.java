@@ -18,7 +18,7 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final CommentService commentService;
-    boolean condition;
+    //Integer condition;
 
     //글작성
     @GetMapping("/save")
@@ -55,9 +55,15 @@ public class BoardController {
                             Model model,
                             HttpSession session,
                             @RequestParam(value = "mbtiPage", required = false , defaultValue = "1") int mbtiPage,
-                            @RequestParam (value = "boardMbti",required = false,defaultValue = "null")String boardMbti,
+                            @RequestParam (value = "boardMbti",required = false,defaultValue = "")String boardMbti,
                             @RequestParam (value = "keyword",required = false,defaultValue = "")String keyword,
-                            @RequestParam (value = "option",required = false,defaultValue = "")String option){
+                            @RequestParam (value = "option",required = false,defaultValue = "")String option,
+                            @RequestParam(value = "myListPage", required = false , defaultValue = "1") int myListPage,
+                            @RequestParam (value = "boardId", required = false,defaultValue = "")String boardId,
+                            @RequestParam (value = "condition", required = false,defaultValue = "")Integer condition
+    ){
+
+        System.out.println("condition = " + condition);
         System.out.println("boardBno = " + bno);
         System.out.println( "Detail_page = " + page );
         System.out.println( "mbti_Detail_page = " + mbtiPage );
@@ -90,6 +96,9 @@ public class BoardController {
         model.addAttribute("option", option);
        // model.addAttribute("commentList",commentDTOList);
         model.addAttribute("comment", commentDTO);
+        //마이페이지-내글목록 myListPage 담아보내기
+        model.addAttribute("myListPage", myListPage);
+        model.addAttribute("boardId", boardId);
         return "board/boardListDetail2";
 
     }
@@ -156,9 +165,10 @@ public class BoardController {
                               @RequestParam(value = "mbtiPage", required = false , defaultValue = "1") int mbtiPage,
                               @RequestParam (value = "boardMbti",required = false,defaultValue = "ENFJ")String boardMbti,
                               @RequestParam (value = "keyword",required = false,defaultValue = "")String keyword,
-                              @RequestParam (value = "option",required = false,defaultValue = "")String option
+                              @RequestParam (value = "option",required = false,defaultValue = "")String option,
+                               @RequestParam (value = "condition", required = false,defaultValue = "2")Integer condition
                               ){
-        condition = true;
+        condition =2;
         System.out.println(" mbtipage = " + mbtiPage);
         System.out.println( " boardMbti = " + boardMbti);
         System.out.println(" keyword = " + keyword);
@@ -169,6 +179,7 @@ public class BoardController {
         mbtiPageDTO mbtiPageDTO = boardService.mbtiPagingParam(mbtiPage,boardMbti,keyword,option);
         model.addAttribute("mbtiBoardList",mbtiPagingList);
         model.addAttribute("mbtiPaging", mbtiPageDTO);
+        model.addAttribute("condition", condition);
         return "board/mbtiBoardList2";
     }
 

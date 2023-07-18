@@ -79,7 +79,10 @@
                       ${board.boardId} | ${board.boardCreatedTime} | hits: ${board.boardHits} |  번호:${board.bno} |${board.boardMbti}
                   </div>
                   <div class="boardTitle">
-                    <a href="/board?bno=${board.bno}&page=${paging.page}&keyword=${paging.keyword}&option=${paging.option}"> ${board.boardTitle} </a>
+                    <a href="/board?bno=${board.bno}&page=${paging.page}&keyword=${paging.keyword}&option=${paging.option}&condition=${condition}">
+                        ${board.boardTitle}
+                    </a>
+                    [${board.comment_cnt} ]
                   </div>
                 </div>
               </li>

@@ -415,19 +415,47 @@
 
 
     //페이징
-    const condition = ${condition};
+   <%-- const condition = ${condition};
     const listFn= () => {
 
 
-        if(condition == false){
+        if(condition === 1){
             const page = ${page};
-            location.href = "/board/list?keyword=${keyword}&option=${option}&page=" + page;
+            location.href = "/?keyword=${keyword}&option=${option}&page="+ page;
         }
-        else {
+        else if(condition === 2){
             const mbtiPage = ${mbtiPage};
             location.href ="/board/mbtilist?keyword=${keyword}&option=${option}&boardMbti=${boardMbti}&mbtiPage="+mbtiPage;
+        }else if(condition === 3){
+            const myListPage = ${myListPage};
+            location.href = "/member/myList?keyword=${keyword}&option=${option}&boardId=${boardId}&myListPage="+myListPage;
         }
-    }
+    }--%>
+
+
+    const condition = ${condition};
+    const listFn = () => {
+        switch (condition) {
+            case 1:
+                const page = ${page};
+                location.href = `/?keyword=${keyword}&option=${option}&page=${page}`;
+                break;
+            case 2:
+                const mbtiPage = ${mbtiPage};
+                location.href = `/board/mbtilist?keyword=${keyword}&option=${option}&boardMbti=${boardMbti}&mbtiPage=${mbtiPage}`;
+                break;
+            case 3:
+                const myListPage = ${myListPage};
+                location.href = `/member/myList?keyword=${keyword}&option=${option}&boardId=${boardId}&myListPage=${myListPage}`;
+                break;
+            default:
+                // 기본 동작 설정
+                break;
+        }
+    };
+
+
+
 
     //글 수정
     const updateFn =  () => {

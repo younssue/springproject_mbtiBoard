@@ -12,6 +12,7 @@
 
 <button onclick="goHome()">Home</button>
 <button onclick="update()">내정보 수정하기</button>
+<button onclick="myList()">내 게시글 </button>
 <button onclick="logout()">로그아웃</button>
 
 <script>
@@ -23,6 +24,10 @@
     }
     const logout = () => {
         location.href = "/member/logout";
+    }
+
+    const myList = () =>{
+        location.href = "/member/myList";
     }
 </script>
 </body>

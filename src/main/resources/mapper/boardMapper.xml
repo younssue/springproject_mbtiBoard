@@ -75,6 +75,23 @@
         and boardMbti like #{boardMbti}
     </select>
 
+    <select id="myListPagingList" parameterType="java.util.HashMap" resultType="board">
+        select * from board_info where
+        <if test="keyword != null">
+            <include refid="searchCondition"/>
+        </if>
+        and boardId like #{boardId} order by bno desc limit #{start},#{limit}
+    </select>
+
+    <select id="myListBoardCount"  parameterType="java.util.HashMap" resultType="Integer">
+        select count(bno) from board_info  where
+        <if test="keyword != null">
+            <include refid="searchCondition"/>
+        </if>
+        and boardId like #{boardId}
+    </select>
+
+
     <update id="updateCommentCnt" parameterType="map">
         update board_info
         set comment_cnt = comment_cnt + #{cnt}
