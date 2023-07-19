@@ -50,3 +50,26 @@ h1 {
     text-align: center;
     margin-top: 0;
 }
+
+.container .signInButton  {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #fff;
+    color: #000;
+    text-decoration: none;
+}
+
+.container .signInButton:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.container .signInButton:focus {
+    outline: none;
+}

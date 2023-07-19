@@ -71,6 +71,7 @@ public class BoardRepository {
         return sql.update("Board.updateCommentCnt",map);
     }
 
+    //마이페이지 - 내 글 보기
     public List<BoardDTO> myListPagingList(Map<String, Object> pagingParams) {
         return sql.selectList("Board.myListPagingList", pagingParams);
     }

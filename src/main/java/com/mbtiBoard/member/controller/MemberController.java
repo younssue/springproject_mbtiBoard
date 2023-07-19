@@ -146,9 +146,9 @@ public class MemberController {
     ){
 
         boardId = (String) session.getAttribute("loginId");
-        //boardDTO.setBoardId(loginId);
-        //boardId = "yy";
 
+
+        //글 상세보기에서 목록(listFn)버튼 실행시 조건
         condition =3;
 
         System.out.println(" myListPage = " + myListPage);

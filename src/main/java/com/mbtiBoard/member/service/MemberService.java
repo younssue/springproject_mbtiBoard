@@ -69,7 +69,10 @@ public class MemberService {
     //회원가입 시 아이디 중복체크
     public String idCheck(String memberId) {
         MemberDTO memberDTO = memberRepository.findByMemberId(memberId);
-        if(memberDTO == null){
+
+        if (memberId.isEmpty()) {
+            return "wait";
+        }else if(memberDTO == null ){
             return "ok";
         }else{
             return "no";

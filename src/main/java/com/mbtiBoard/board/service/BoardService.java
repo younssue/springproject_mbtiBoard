@@ -157,6 +157,7 @@ public class BoardService {
     }
 
 
+    //마이페이지 - 내 글 보기(페이징)
     int myListPageLimit = 3;// 한 페이지당 보여줄 글 갯수
     int myListBlockLimit = 3;// 하단에 보여줄 페이지 번호 갯수
     public List<BoardDTO> myListPagingList(int myListPage, String keyword, String option, String boardId ) {

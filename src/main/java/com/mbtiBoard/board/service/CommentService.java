@@ -17,9 +17,17 @@ public class CommentService {
     //댓글 작성
     public int commentSave (CommentDTO commentDTO){
        // boardRepository.findByBno(commentDTO.getBno());
-        boardRepository.updateCommentCnt(commentDTO.getBno(),1);
+//        boardRepository.updateCommentCnt(commentDTO.getBno(),1);
+//
+//        return commentRepository.commentSave(commentDTO);
 
-        return commentRepository.commentSave(commentDTO);
+
+        int result = commentRepository.commentSave(commentDTO);
+        if (result == 1) {
+            boardRepository.updateCommentCnt(commentDTO.getBno(), 1);
+        }
+
+        return result;
     }
 
     //댓글 목록

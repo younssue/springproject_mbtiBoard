@@ -290,28 +290,7 @@
                 <button onclick="save()" type="button" class="btn-write">글 작성</button> <!-- 버튼 스타일을 적용한 클래스로 변경 -->
             </c:when>
         </c:choose>
-        <%--<c:choose>
-            <c:when test="${paging == null}">
-               <tr height="10">
-                    <td colspan="4">
-                        <b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b>
-                    </td>
-                </tr>
-            </c:when>
-            <c:when test="${paging != null}">
-                <c:forEach items="${boardList}" var="board">
-                    <div class="board-item">
-                        <div class="board-title">
-                            <a href="/board?bno=${board.bno}&page=${paging.page}&keyword=${paging.keyword}&option=${paging.option}">${board.boardTitle}</a>
-                        </div>
-                        <div class="board-details">
-                            게시글 번호: ${board.bno} | 게시글 번호: ${board.boardMbti} | 작성자: ${board.boardId} | 조회수:
-                                ${board.boardHits} | 작성일: ${board.boardCreatedTime}
-                        </div>
-                    </div>
-                </c:forEach>
-            </c:when>
-        </c:choose>--%>
+
 
 
                 <c:forEach items="${boardList}" var="board">

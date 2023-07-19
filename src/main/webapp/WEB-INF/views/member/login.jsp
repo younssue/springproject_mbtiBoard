@@ -15,8 +15,14 @@
         <input type="text" name="memberId" placeholder="아이디">
         <input type="password" name="memberPassword" placeholder="비밀번호">
         <input type="submit" value="로그인">
-        <a href="/member/save">Sign in</a>
+
+        <button type="button" class="signInButton" onclick="signIn()" > 회원가입 </button>
     </form>
 </div>
 </body>
+<script>
+    const signIn = () => {
+        location.href = "/member/save";
+    }
+</script>
 </html>

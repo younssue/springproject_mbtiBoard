@@ -65,13 +65,17 @@
             success: function(res) {
                 console.log("요청성공", res);
                 if (res === "ok") {
-                    console.log("사용가능한 아이디");
+                    console.log("사용가능한 아이디입니다");
                     checkResult.style.color = "green";
-                    checkResult.innerHTML = "사용가능한 아이디";
-                } else {
-                    console.log("이미 사용중인 아이디");
+                    checkResult.innerHTML = "사용가능한 아이디입니다";
+                } else if(res === "no") {
+                    console.log("이미 사용중인 아이디입니다");
                     checkResult.style.color = "red";
-                    checkResult.innerHTML = "이미 사용중인 아이디";
+                    checkResult.innerHTML = "이미 사용중인 아이디입니다";
+                }  else if(res === "wait") {
+                    console.log("아이디를 입력해주세요");
+                    checkResult.style.color = "black";
+                    checkResult.innerHTML = "아이디를 입력해주세요";
                 }
             },
             error: function(err) {

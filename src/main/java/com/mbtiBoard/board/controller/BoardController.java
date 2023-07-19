@@ -3,7 +3,6 @@ package com.mbtiBoard.board.controller;
 import com.mbtiBoard.board.dto.*;
 import com.mbtiBoard.board.service.BoardService;
 import com.mbtiBoard.board.service.CommentService;
-import com.mbtiBoard.member.dto.MemberDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -99,7 +98,7 @@ public class BoardController {
         //마이페이지-내글목록 myListPage 담아보내기
         model.addAttribute("myListPage", myListPage);
         model.addAttribute("boardId", boardId);
-        return "board/boardListDetail2";
+        return "/board/boardListDetail";
 
     }
 
@@ -168,6 +167,7 @@ public class BoardController {
                               @RequestParam (value = "option",required = false,defaultValue = "")String option,
                                @RequestParam (value = "condition", required = false,defaultValue = "2")Integer condition
                               ){
+        //글 상세보기에서 목록(listFn)버튼 실행시 조건
         condition =2;
         System.out.println(" mbtipage = " + mbtiPage);
         System.out.println( " boardMbti = " + boardMbti);
@@ -180,7 +180,7 @@ public class BoardController {
         model.addAttribute("mbtiBoardList",mbtiPagingList);
         model.addAttribute("mbtiPaging", mbtiPageDTO);
         model.addAttribute("condition", condition);
-        return "board/mbtiBoardList2";
+        return "mbtiBoardList";
     }
 
 }
