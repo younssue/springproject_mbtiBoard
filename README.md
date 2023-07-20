@@ -16,13 +16,13 @@
 ##### 개발기간:  23.05.31-07.20 (7주)
 
 ## ⚙️개발환경
-##### IntelliJ IDEA Community Edition
-##### amazon corretto open jdk 11
-##### mysql 8
-##### mybatis
-##### JSP
-##### Tomcat 9
-##### HTML5, CSS3 ,JS jquery
+##### - IntelliJ IDEA Community Edition
+##### - amazon corretto open jdk 11
+##### - mysql 8
+##### - mybatis
+##### - JSP
+##### - Tomcat 9
+##### - HTML5, CSS3 ,JS jquery
 
 
 ## ✅주요기능
