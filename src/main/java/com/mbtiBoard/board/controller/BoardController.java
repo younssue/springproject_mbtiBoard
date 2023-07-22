@@ -3,6 +3,7 @@ package com.mbtiBoard.board.controller;
 import com.mbtiBoard.board.dto.*;
 import com.mbtiBoard.board.service.BoardService;
 import com.mbtiBoard.board.service.CommentService;
+import com.mbtiBoard.member.dto.MemberDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final CommentService commentService;
-    //Integer condition;
+    Integer condition;
 
     //글작성
     @GetMapping("/save")
@@ -129,7 +130,7 @@ public class BoardController {
     public String boardDelete(@RequestParam("bno") Integer bno){
         System.out.println("bno = " + bno);
         boardService.boardDelete(bno);
-        return "redirect:/board/list";
+        return "redirect:/";
     }
 
     //페이징 처리 방법 배우기
@@ -180,7 +181,7 @@ public class BoardController {
         model.addAttribute("mbtiBoardList",mbtiPagingList);
         model.addAttribute("mbtiPaging", mbtiPageDTO);
         model.addAttribute("condition", condition);
-        return "mbtiBoardList";
+        return "board/mbtiBoardList";
     }
 
 }
