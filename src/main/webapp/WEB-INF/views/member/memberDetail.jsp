@@ -34,5 +34,15 @@
     <td>${member.memberMbti}</td>
   </tr>
 </table>
+<div class="buttons">
+  <button onclick="listFn()">목록</button>
+</div>
 </body>
+<script>
+
+
+  const listFn= () => {
+    location.href = `/member/myPage`;
+  }
+</script>
 </html>

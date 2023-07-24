@@ -165,6 +165,23 @@
       <artifactId>tiles-servlet</artifactId>
       <version>2.2.2</version>
     </dependency>
+    <!-- 구글 OAuth2 로그인 API   -->
+<!--    <dependency>
+      <groupId>com.github.scribejava</groupId>
+      <artifactId>scribejava-apis</artifactId>
+      <version>8.3.1</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.scribejava</groupId>
+      <artifactId>scribejava-core</artifactId>
+      <version>8.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.social</groupId>
+      <artifactId>spring-social-google</artifactId>
+      <version>1.0.0.RELEASE</version>
+    </dependency>-->
 
 
 

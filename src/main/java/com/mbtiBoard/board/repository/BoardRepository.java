@@ -64,6 +64,7 @@ public class BoardRepository {
         return sql.selectOne("Board.mbtiBoardCount",mbtiCountCondition);
     }
 
+    //댓글 갯수
     public int updateCommentCnt(Integer bno, int cnt) {
         Map map = new HashMap();
         map.put("cnt",cnt);
@@ -78,5 +79,14 @@ public class BoardRepository {
 
     public int myListBoardCount(Map<String, Object> myListCountCondition) {
         return sql.selectOne("Board.myListBoardCount", myListCountCondition);
+    }
+
+    // 관리자 페이지- 전체글 관리
+    public List<BoardDTO> adminPagingList(Map<String, Object> pagingParams) {
+        return sql.selectList("Board.adminPagingList",pagingParams);
+    }
+
+    public int adminBoardCount(Map<String, Object> adminCountCondition) {
+        return sql.selectOne("Board.boardCount",adminCountCondition);
     }
 }

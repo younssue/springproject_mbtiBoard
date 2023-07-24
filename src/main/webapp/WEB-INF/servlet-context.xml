@@ -25,6 +25,35 @@
         <beans:property name="maxInMemorySize" value="1048576" /> <!--1MB-->
     </beans:bean>
 
+    <!-- 구글 로그인 OAuth2   -->
+   <!-- <beans:bean id="googleClientID" class="java.lang.String">
+        <beans:constructor-arg value="530848368769-ikfie33e588cm5c8396k6bh4jb1b46ua.apps.googleusercontent.com"/>
+    </beans:bean>
+    <beans:bean id="googleClientSecret" class="java.lang.String">
+        <beans:constructor-arg value="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" />
+    </beans:bean>
+    <beans:bean id="googleRedirectUrl" class="java.lang.String">
+        <beans:constructor-arg value="http://localhost:9090/auth/google/callback" />
+    </beans:bean>
+
+    <beans:bean id="googleSns" class="com.mbtiBoard.auth.SnsValue">
+        <beans:constructor-arg value="google" />
+        <beans:constructor-arg ref="googleClientID" />
+        <beans:constructor-arg ref="googleClientSecret" />
+        <beans:constructor-arg ref="googleRedirectUrl" />
+    </beans:bean>
+
+    <beans:bean id="googleConnectionFactory"
+                class="org.springframework.social.google.connect.GoogleConnectionFactory">
+        <beans:constructor-arg ref="googleClientID" />
+        <beans:constructor-arg ref="googleClientSecret" />
+    </beans:bean>
+
+    <beans:bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+        <beans:property name="scope" value="https://www.googleapis.com/auth/userinfo.email" />
+        &lt;!&ndash; <beans:property name="scope" value="https://www.googleapis.com/auth/plus.login" /> &ndash;&gt;
+        <beans:property name="redirectUri" ref="googleRedirectUrl" />
+    </beans:bean>-->
 
 
     <!-- 프로젝트 패키지이름 확인 -->

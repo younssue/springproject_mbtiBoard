@@ -1,0 +1,148 @@
+header{
+    width: 100%;
+    /* position:fixed로 줄 경우 위치를 잡아줘야한다
+        top,left
+    */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* 헤더가 메인보다 우선적으로, 숫자가 클수록 우선순위 커짐*/
+    z-index: 100;
+    background: #213135;
+    padding: 40px 0 25px;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    /* 대문자 */
+    text-transform: uppercase;
+}
+
+header .inner{
+    width: 90%;
+    /* 센터로 위치 */
+    margin: 0 auto;
+}
+
+header .inner .logo{
+    display: inline-block;
+    font-size: 25px;
+    /* 자간 */
+    letter-spacing: 1px;
+}
+
+header .inner .gnbBtn{
+    display: block;
+    float: left;
+    width: 32px;
+    height: 12px;
+    position: relative;
+}
+
+header .inner .gnbBtn span{
+    /* background: #fff;  */
+    width: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    margin-top: 5px;
+}
+
+header .inner .gnbBtn span.a{
+
+    top: 0;
+}
+
+header .inner .gnbBtn span.b{
+    bottom: 0;
+}
+
+header .inner .login{
+    display: block;
+    float: right;
+    margin-top: 10px;
+
+}
+
+.contents{
+    margin-top: 150px;
+}
+
+.contents h2{
+    margin-left: 55px;
+}
+
+.contents .search_wrap{
+    margin-left: 55px;
+}
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: auto;
+    /*margin-top: 50px;*/
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+a{
+    /* 부모의 속성을 받게함 */
+    color: inherit;
+    /* a태그 밑줄 없애기 */
+    text-decoration: none;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #337ab7;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #23527c;
+}
+
+/* 페이지 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+}
+
+.pagination span,
+.pagination a {
+    font-size: 14px;
+    padding: 0.25em 0.5em;
+    margin: 0 0.25em;
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #ccc;
+}
+
+.pagination span:first-child,
+.pagination a:first-child {
+    margin-left: 0;
+}
+
+.pagination span:last-child,
+.pagination a:last-child {
+    margin-right: 0;
+}
+
+.pagination .selected {
+    color: #FF0266;
+    font-weight: bold;
+}

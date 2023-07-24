@@ -60,7 +60,8 @@ public class BoardController {
                             @RequestParam (value = "option",required = false,defaultValue = "")String option,
                             @RequestParam(value = "myListPage", required = false , defaultValue = "1") int myListPage,
                             @RequestParam (value = "boardId", required = false,defaultValue = "")String boardId,
-                            @RequestParam (value = "condition", required = false,defaultValue = "")Integer condition
+                            @RequestParam (value = "condition", required = false,defaultValue = "")Integer condition,
+                            @RequestParam(value = "adminPage", required = false , defaultValue = "1") int adminPage
     ){
 
         System.out.println("condition = " + condition);
@@ -99,6 +100,7 @@ public class BoardController {
         //마이페이지-내글목록 myListPage 담아보내기
         model.addAttribute("myListPage", myListPage);
         model.addAttribute("boardId", boardId);
+        model.addAttribute("adminPage", adminPage);
         return "/board/boardListDetail";
 
     }

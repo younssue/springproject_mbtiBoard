@@ -448,6 +448,11 @@
             case 3:
                 const myListPage = ${myListPage};
                 location.href = `/member/myList?keyword=${keyword}&option=${option}&boardId=${boardId}&myListPage=${myListPage}`;
+
+                break;
+            case 4:
+                const adminPage =${adminPage};
+                location.href =`/admin/boardList?keyword=${keyword}&option=${option}&adminPage=${adminPage}`;
                 break;
             default:
                 // 기본 동작 설정
@@ -598,7 +603,7 @@
 
 
 
-        //답글달기
+        //대댓글달기
         $("#wrtRepBtn").click(function () {
             let comment = $("textarea[name=replyComment]").val();
             let pcno = $("#replyForm").parent().attr("data-pcno");

@@ -52,8 +52,17 @@ public class MemberController {
                         HttpSession session) {
         boolean loginResult = memberService.login(memberDTO);
         if (loginResult) {
+
             session.setAttribute("loginId", memberDTO.getMemberId());
-            return "member/myPage";
+            if("admin".equals(memberDTO.getMemberId()) && memberDTO.getMemberPassword().equals("1234")){
+                //관리자 계정-> 관리자 페이지로 이동
+
+                return "redirect:/admin/";
+
+            }else {
+
+                return "member/myPage";
+            }
         } else {
             return "member/login";
         }
@@ -69,30 +78,6 @@ public class MemberController {
         return "redirect:/";
     }
 
-    //회원목록 리스트
-    @GetMapping("/list")
-    public String findAll(Model model) {
-        List<MemberDTO> memberDTOList = memberService.findAll();
-        model.addAttribute("memberList", memberDTOList);
-        return "member/memberList";
-    }
-
-    //회원 상세조회
-    // /member?id=
-    @GetMapping
-    public String findById(@RequestParam("id") String memberId, Model model) {
-        MemberDTO memberDTO = memberService.findById(memberId);
-        model.addAttribute("member", memberDTO);
-        return "member/memberDetail";
-    }
-
-    //회원삭제
-    // /member/delete?id=
-    @GetMapping("/delete")
-    public String delete(@RequestParam("id") String memberId) {
-        memberService.delete(memberId);
-        return "redirect:/member/list"; //redirect방식은 jsp 이름이 아닌 url 주소값으로 줘야한다
-    }
 
     //수정화면 요청
     @GetMapping("/update")
@@ -116,6 +101,13 @@ public class MemberController {
         }
     }
 
+
+    @GetMapping
+    public String findById(@RequestParam("id") String memberId, Model model) {
+        MemberDTO memberDTO = memberService.findById(memberId);
+        model.addAttribute("member", memberDTO);
+        return "member/memberDetail";
+    }
 
     //아이디 중복체크
     @PostMapping("/id-check")

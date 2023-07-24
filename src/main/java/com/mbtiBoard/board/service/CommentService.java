@@ -23,9 +23,9 @@ public class CommentService {
 
 
         int result = commentRepository.commentSave(commentDTO);
-        if (result == 1) {
-            boardRepository.updateCommentCnt(commentDTO.getBno(), 1);
-        }
+//        if (result == 1) {
+//            boardRepository.updateCommentCnt(commentDTO.getBno(), 1);
+//        }
 
         return result;
     }
@@ -52,10 +52,10 @@ public class CommentService {
 
     //댓글 삭제
     public int commentRemove(Integer cno, Integer bno, String memberId){
-        int rowCnt = boardRepository.updateCommentCnt(bno,-1);
-        System.out.println("updateCommentCnt-rowCnt = " + rowCnt );
+//        int rowCnt = boardRepository.updateCommentCnt(bno,-1);
+//        System.out.println("updateCommentCnt-rowCnt = " + rowCnt );
 
-        rowCnt = commentRepository.delete(cno, memberId);
+        int rowCnt = commentRepository.delete(cno, memberId);
         System.out.println("rowCnt=" +rowCnt);
         return rowCnt;
     }

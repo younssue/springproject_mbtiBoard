@@ -28,7 +28,7 @@
         delete from board_info where bno = #{bno}
     </delete>
 
-
+<!-- 검색 키워드 -->
     <sql id="searchCondition">
         <choose>
             <when test='option == "T"'>
@@ -92,11 +92,32 @@
     </select>
 
 
-    <update id="updateCommentCnt" parameterType="map">
+    <!--댓글 갯수-->
+   <!-- <update id="updateCommentCnt" parameterType="map">
         update board_info
         set comment_cnt = comment_cnt + #{cnt}
         where bno = #{bno}
-    </update>
+    </update>-->
+
+
+    <!-- 관리자페이지-전체글 관리   -->
+    <select id="adminPagingList" parameterType="java.util.HashMap" resultType="board">
+        select * from board_info where
+        <if test="keyword != null">
+            <include refid="searchCondition"/>
+        </if>
+        order by bno desc limit #{start},#{limit}
+    </select>
+
+    <select id="adminBoardCount" parameterType="java.util.HashMap" resultType="Integer">
+        select count(bno) from board_info where
+        <if test="keyword != null">
+            <include refid="searchCondition"/>
+        </if>
+    </select>
+
+
+
 
 <!--    <select id="searchCount" parameterType="SearchCondition" resultType="int">
         select count(bno) from board_info where boardTitle like concat('%',#{keyword},'%')

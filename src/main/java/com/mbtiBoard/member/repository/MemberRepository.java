@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -47,5 +48,13 @@ public class MemberRepository { //DB-mybatis 연결
     //회원 정보 수정
     public int update(MemberDTO memberDTO) {
         return sql.update("Member.update", memberDTO);
+    }
+
+    public List<MemberDTO> memberPagingList(Map<String, Object> pagingParams) {
+        return sql.selectList("Member.memberPagingList",pagingParams);
+    }
+
+    public int memberCount(Map<String, Object> memberCountCondition) {
+        return sql.selectOne("Member.memberCount",memberCountCondition);
     }
 }

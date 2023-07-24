@@ -28,11 +28,18 @@
 
       <a href="/" class="logo">MBTI Board</a>
       <c:choose>
-        <c:when test="${sessionScope.loginId == null}">
+        <c:when test="${empty sessionScope.loginId}">
             <a href="/member/login" class="login">login</a>
         </c:when>
-        <c:when test="${sessionScope.loginId != null}">
-            <a href="/member/myPage" class="login">${sessionScope.loginId}님의 마이페이지</a>
+        <c:when test="${not empty sessionScope.loginId}">
+          <c:choose>
+            <c:when test="${sessionScope.loginId =='admin'}">
+              <a href="/admin/" class="login">관리자페이지</a>
+            </c:when>
+            <c:otherwise>
+              <a href="/member/myPage" class="login">${sessionScope.loginId}님의 마이페이지</a>
+            </c:otherwise>
+          </c:choose>
         </c:when>
       </c:choose>
     </div>

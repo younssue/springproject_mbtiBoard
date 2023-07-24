@@ -3,6 +3,7 @@ package com.mbtiBoard;
 import com.mbtiBoard.board.dto.BoardDTO;
 import com.mbtiBoard.board.dto.PageDTO;
 import com.mbtiBoard.board.service.BoardService;
+import com.mbtiBoard.board.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ public class HomeController {
 
     //Integer condition;
     private  final BoardService boardService;
+    private  final CommentService commentService;
 //    @GetMapping("/")
 //    public String index(){
 //        return "mainIndex2";
@@ -44,6 +46,12 @@ public class HomeController {
         List<BoardDTO> pagingList = boardService.pagingList(page,keyword,option);
         System.out.println("pagingList="+pagingList);
         PageDTO pageDTO = boardService.pagingParam(page,keyword,option);
+
+        // 각 게시글에 대한 댓글 갯수를 조회하여 BoardDTO에 추가
+        for (BoardDTO boardDTO : pagingList) {
+            int commentCount = commentService.getCount(boardDTO.getBno());
+            boardDTO.setComment_cnt(commentCount);
+        }
 
 
 
