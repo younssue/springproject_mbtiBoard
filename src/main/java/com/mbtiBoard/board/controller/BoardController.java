@@ -180,6 +180,13 @@ public class BoardController {
         List<BoardDTO> mbtiPagingList = boardService.mbtiPagingList(mbtiPage,boardMbti,keyword,option);
         System.out.println("mbtiPagingList="+mbtiPagingList);
         mbtiPageDTO mbtiPageDTO = boardService.mbtiPagingParam(mbtiPage,boardMbti,keyword,option);
+
+        // 각 게시글에 대한 댓글 갯수를 조회하여 BoardDTO에 추가
+        for (BoardDTO boardDTO : mbtiPagingList) {
+            int commentCount = commentService.getCount(boardDTO.getBno());
+            boardDTO.setComment_cnt(commentCount);
+        }
+
         model.addAttribute("mbtiBoardList",mbtiPagingList);
         model.addAttribute("mbtiPaging", mbtiPageDTO);
         model.addAttribute("condition", condition);

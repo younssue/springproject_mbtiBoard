@@ -4,6 +4,7 @@ import com.mbtiBoard.admin.dto.AdminPageDTO;
 import com.mbtiBoard.admin.dto.MemberPageDTO;
 import com.mbtiBoard.board.dto.BoardDTO;
 import com.mbtiBoard.board.service.BoardService;
+import com.mbtiBoard.board.service.CommentService;
 import com.mbtiBoard.member.dto.MemberDTO;
 import com.mbtiBoard.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import java.util.List;
 public class AdminController {
     private final MemberService memberService;
     private final BoardService boardService;
+    private final CommentService commentService;
 
     Integer memberCondition;
     @GetMapping("/")
@@ -108,6 +110,11 @@ public class AdminController {
         System.out.println("adminPagingList="+adminPagingList);
         AdminPageDTO adminPageDTO = boardService.adminPagingParam(adminPage,keyword,option);
 
+        // 각 게시글에 대한 댓글 갯수를 조회하여 BoardDTO에 추가
+        for (BoardDTO boardDTO : adminPagingList) {
+            int commentCount = commentService.getCount(boardDTO.getBno());
+            boardDTO.setComment_cnt(commentCount);
+        }
 
 
         model.addAttribute("boardList",adminPagingList);

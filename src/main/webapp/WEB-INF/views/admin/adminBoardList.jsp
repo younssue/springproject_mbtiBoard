@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>list</title>
-    <link rel="stylesheet" href="/resources/css/adminList.css">
+    <link rel="stylesheet" href="/resources/css/ListStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,7 +50,7 @@
         <tr>
             <td>${board.bno}</td>
             <td>${board.boardId}</td>
-            <td><a href="/board?bno=${board.bno}&adminPage=${paging.adminPage}&keyword=${paging.keyword}&option=${paging.option}&condition=${condition}">${board.boardTitle}</a></td>
+            <td><a href="/board?bno=${board.bno}&adminPage=${paging.adminPage}&keyword=${paging.keyword}&option=${paging.option}&condition=${condition}">${board.boardTitle} [${board.comment_cnt}]</a></td>
             <td>${board.boardMbti}</td>
             <td>${board.boardHits}</td>
             <td>${board.boardCreatedTime}</td>

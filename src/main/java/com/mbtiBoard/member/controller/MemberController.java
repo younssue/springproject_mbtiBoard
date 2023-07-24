@@ -4,6 +4,7 @@ import com.mbtiBoard.board.dto.BoardDTO;
 import com.mbtiBoard.board.dto.PageDTO;
 import com.mbtiBoard.board.dto.myListPageDTO;
 import com.mbtiBoard.board.service.BoardService;
+import com.mbtiBoard.board.service.CommentService;
 import com.mbtiBoard.member.dto.MemberDTO;
 import com.mbtiBoard.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class MemberController {
     private final MemberService memberService;
     //private final BoardDTO boardDTO;
     private final BoardService boardService;
+    private final CommentService commentService;
 
     Integer condition;
 
@@ -151,13 +153,17 @@ public class MemberController {
         //해당 페이지에서 보여줄 글 목록
 
 
-        List<BoardDTO> pagingList = boardService.myListPagingList(myListPage,keyword,option,boardId);
-        System.out.println("mylIst_pagingList="+pagingList);
+        List<BoardDTO> myListPagingList = boardService.myListPagingList(myListPage,keyword,option,boardId);
+        System.out.println("myListPagingList="+myListPagingList);
         myListPageDTO myListPageDTO = boardService.myListPagingParam(myListPage,keyword,option,boardId);
 
+        // 각 게시글에 대한 댓글 갯수를 조회하여 BoardDTO에 추가
+        for (BoardDTO boardDTO : myListPagingList) {
+            int commentCount = commentService.getCount(boardDTO.getBno());
+            boardDTO.setComment_cnt(commentCount);
+        }
 
-
-        model.addAttribute("boardList",pagingList);
+        model.addAttribute("boardList",myListPagingList);
         model.addAttribute("myListPaging", myListPageDTO);
         model.addAttribute("boardId", boardId);
         model.addAttribute("condition", condition);
