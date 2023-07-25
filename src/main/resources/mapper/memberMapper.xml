@@ -56,4 +56,10 @@
             <include refid="searchCondition"/>
         </if>
     </select>
+
+
+    <!-- 아이디 찾기  -->
+    <select id="memberIdSearch" parameterType="String" resultType="member">
+        select * from member_info where memberName = #{memberName} and memberMobile = #{memberMobile}
+    </select>
 </mapper>

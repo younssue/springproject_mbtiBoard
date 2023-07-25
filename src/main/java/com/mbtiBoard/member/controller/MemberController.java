@@ -169,5 +169,41 @@ public class MemberController {
         model.addAttribute("condition", condition);
         return "member/myList";
     }
+
+
+    //아이디 찾기
+    @GetMapping("/searchId")
+    public String searchId(){
+
+        return "member/searchId";
+    };
+
+    @PostMapping("/searchId_result")
+    public String searchId_result(Model model,
+                                  @RequestParam(required = true, value = "memberName")String memberName,
+                                  @RequestParam(required = true, value = "memberMobile")String memberMobile,
+                                  MemberDTO memberDTO
+    ){
+        try {
+            memberDTO.setMemberName(memberName);
+            memberDTO.setMemberMobile(memberMobile);
+            MemberDTO memberSearch = memberService.memberIdSearch(memberDTO);
+
+            model.addAttribute("memberSearch",memberSearch);
+
+
+        }catch (Exception e){
+            System.out.println(e.toString());
+            model.addAttribute("msg","오류가 발생되었습니다");
+        }
+        return "member/searchId_result";
+    };
+
+    //비밀번호 찾기
+    @GetMapping("/searchPw")
+    public String searchPw(){
+
+        return "member/searchPw";
+    };
 }
 

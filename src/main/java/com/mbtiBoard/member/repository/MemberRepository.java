@@ -57,4 +57,9 @@ public class MemberRepository { //DB-mybatis 연결
     public int memberCount(Map<String, Object> memberCountCondition) {
         return sql.selectOne("Member.memberCount",memberCountCondition);
     }
+
+    //아이디 찾기
+    public MemberDTO memberIdSearch(MemberDTO memberDTO) {
+        return sql.selectOne("Member.memberIdSearch", memberDTO);
+    }
 }

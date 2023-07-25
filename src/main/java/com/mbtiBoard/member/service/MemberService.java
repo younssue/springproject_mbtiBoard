@@ -129,48 +129,10 @@ public class MemberService {
 
     }
 
-    /*int adminPageLimit = 5;// 한 페이지당 보여줄 글 갯수
-    int adminBlockLimit = 5;// 하단에 보여줄 페이지 번호 갯수
-    public List<BoardDTO> adminPagingList(int adminPage, String keyword, String option) {
-        int adminPageStart = ( adminPage - 1 ) * adminPageLimit;
-        System.out.println("adminPageStart = " + adminPageStart);
-
-        //댓글 갯수
-        //int commentCnt =  boardRepository.updateCommentCnt(bno,cnt);
-
-        Map<String, Object> pagingParams = new HashMap<>();
-        pagingParams.put("start",adminPageStart);
-        pagingParams.put("limit",adminBlockLimit);
-        pagingParams.put("keyword", keyword);
-        pagingParams.put("option",option);
-
-        List<BoardDTO> adminPagingList = boardRepository.adminPagingList(pagingParams);
-
-        return adminPagingList;
+    //아이디 찾기
+    public MemberDTO memberIdSearch(MemberDTO memberDTO) {
+        return memberRepository.memberIdSearch(memberDTO);
     }
 
-    public AdminPageDTO adminPagingParam(int adminPage, String keyword, String option) {
-        //전체 글 갯수 조회
-        Map<String, Object> adminCountCondition = new HashMap<>();
-        adminCountCondition.put("keyword", keyword);
-        adminCountCondition.put("option", option);
-        int adminBoardCount = boardRepository.adminBoardCount(adminCountCondition);
-        // 전체 페이지 갯수 계산 (10/3 = 3.333 => 페이지 총 4
-        int adminMaxPage = (int)(Math.ceil((double) adminBoardCount/ adminPageLimit));
-        // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)
-        int adminStartPage = (((int)(Math.ceil((double) adminPage / adminBlockLimit))) - 1) * adminBlockLimit + 1;
-        // 끝 페이지 값 계산(3,6,9,12, ~~~~)
-        int adminEndPage = adminStartPage + adminBlockLimit - 1;
-        if (adminEndPage > adminMaxPage) {
-            adminEndPage = adminMaxPage;
-        }
-        AdminPageDTO adminPageDTO = new AdminPageDTO();
-        adminPageDTO.setAdminPage(adminPage);
-        adminPageDTO.setAdminMaxPage(adminMaxPage);
-        adminPageDTO.setAdminStartPage(adminStartPage);
-        adminPageDTO.setAdminEndPage(adminEndPage);
-        adminPageDTO.setKeyword(keyword);
-        adminPageDTO.setOption(option);
-        return adminPageDTO;
-    }*/
+
 }

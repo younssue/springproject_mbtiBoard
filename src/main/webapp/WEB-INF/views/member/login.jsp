@@ -15,14 +15,25 @@
         <input type="text" name="memberId" placeholder="아이디">
         <input type="password" name="memberPassword" placeholder="비밀번호">
         <input type="submit" value="로그인">
-
-        <button type="button" class="signInButton" onclick="signIn()" > 회원가입 </button>
+        <div class="buttons">
+            <button type="button" class="signIn" onclick="signIn()" > 회원가입 </button>
+            <button type="button" class="search_id" onclick="searchId()" > 아이디 찾기 </button>
+            <button type="button" class="search_pw" onclick="searchPw()" > 비밀번호 찾기 </button>
+        </div>
     </form>
 </div>
 </body>
 <script>
     const signIn = () => {
         location.href = "/member/save";
+    }
+
+    const searchId = () =>{
+        location.href = "/member/searchId";
+    }
+
+    const searchPw = () =>{
+        location.href = "/member/searchPw";
     }
 </script>
 </html>
