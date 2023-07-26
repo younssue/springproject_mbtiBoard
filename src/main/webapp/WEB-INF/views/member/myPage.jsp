@@ -11,7 +11,8 @@
 <h2>${sessionScope.loginId} 님 환영합니다.</h2>
 
 <button onclick="goHome()">Home</button>
-<button onclick="update()">내정보 수정하기</button>
+<button onclick="update()">내 정보 수정하기</button>
+<button onclick="changePwd()">비밀번호 변경하기</button>
 <button onclick="myList()">내 게시글 </button>
 <button onclick="logout()">로그아웃</button>
 
@@ -28,6 +29,10 @@
 
     const myList = () =>{
         location.href = "/member/myList";
+    }
+
+    const changePwd = ()=>{
+        location.href ="/member/changePwd";
     }
 </script>
 </body>

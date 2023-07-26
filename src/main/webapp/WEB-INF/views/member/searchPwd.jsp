@@ -11,12 +11,13 @@
 </head>
 <body>
 <div class="container">
-    <form action="/member/searchId_result" id="createForm" method="Post">
-        <h3>🗝️아이디 찾기</h3>
+    <form action="/member/searchPwd_result" id="createForm" method="Post">
+        <h3>🔐비밀번호 찾기</h3>
+        <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요">
         <input type="text" id="memberName" name="memberName" placeholder="이름을 입력해주세요">
         <input type="tel" id="memberMobile" name="memberMobile" placeholder="핸드폰 번호(-없이)입력해주세요">
         <div class="buttons">
-            <button type="button" class="search_id" onclick="fnSubmit(); return false;" > 아이디 찾기 </button>
+            <button type="button" class="search_pwd" onclick="fnSubmit(); return false;" > 비밀번호 찾기 </button>
             <%--<input type="submit" value="로그인">--%>
             <button type="button" class="login" onclick="logIn()" > 로그인 </button>
             <button type="button" class="signIn" onclick="signIn()" > 회원가입 </button>
@@ -54,6 +55,13 @@
 
         const tel_rule = /^\d{2,3}\d{3,4}\d{4}$/;
 
+        if ($("#memberId").val() == null || $("#memberId").val() == "") {
+            alert("아이디를 입력해주세요.");
+            $("#memberId").focus();
+
+            return false;
+        }
+
         if ($("#memberName").val() == null || $("#memberName").val() == "") {
             alert("이름을 입력해주세요.");
             $("#memberName").focus();
@@ -74,7 +82,7 @@
         }
 
 
-        if (confirm("아이디를 찾으시겠습니까?")) {
+        if (confirm("비밀번호를 찾으시겠습니까?")) {
 
             $("#createForm").submit();
 

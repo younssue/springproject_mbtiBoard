@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>login</title>
-  <link rel="stylesheet" href="/resources/css/search.css">
+  <link rel="stylesheet" href="/resources/css/searchPwdResult.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,20 +13,20 @@
 <div class="container">
     <form>
         <div class="text">
-            👉아이디를 확인하고 로그인 해주세요
+            👉임시비밀번호를 발급했습니다<br>
+        </div>
+        <div class="text_detail">
+            (임시비밀번호로 로그인 해주시고, 마이페이지에서 비밀번호 변경해주시길 바랍니다)
         </div>
 
-        <div class="resultId">
-            <c:choose>
-              <c:when test="${empty memberSearch}">
-                <p>조회결과가 없습니다</p>
-              </c:when>
-              <c:otherwise>
-                <h3>Id:</h3>
-                <h3> ${memberSearch.memberId}</h3>
-              </c:otherwise>
+        <div class="resultPwd">
+            <div class="newPwdName">
+                임시비밀번호
+            </div>
+            <div class="newPwd">
+                <h3> ${newPwd}</h3>
+            </div>
 
-            </c:choose>
         </div>
         <div class="buttons">
             <button type="button" class="login" onclick="logIn()" > 로그인 </button>

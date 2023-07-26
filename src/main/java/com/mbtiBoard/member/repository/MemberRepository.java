@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,4 +63,30 @@ public class MemberRepository { //DB-mybatis 연결
     public MemberDTO memberIdSearch(MemberDTO memberDTO) {
         return sql.selectOne("Member.memberIdSearch", memberDTO);
     }
+
+    public MemberDTO memberPwdSearch(MemberDTO memberDTO) {
+        return sql.selectOne("Member.memberPwdSearch", memberDTO);
+    }
+
+    public int passwordUpdate(MemberDTO memberDTO) {
+        return sql.update("Member.passwordUpdate", memberDTO);
+    }
+
+    // 마이페이지-비밀번호 변경
+//     public String checkPwd(String memberId){
+//        return sql.selectOne("Member.checkPwd",memberId);
+//    }
+
+//    public void selfPwdUpdate(String memberId, String memberPassword){
+//        Map<String,Object> map = new HashMap<String,Object>();
+//        map.put("memberId", memberId);
+//        map.put("memberPassword",memberPassword);
+//        sql.update("Member.selfPwdUpdate", map);
+//    }
+
+        public int selfPwdUpdate(MemberDTO memberDTO){
+
+            return sql.update("Member.selfPwdUpdate", memberDTO);
+    }
+
 }

@@ -62,4 +62,24 @@
     <select id="memberIdSearch" parameterType="String" resultType="member">
         select * from member_info where memberName = #{memberName} and memberMobile = #{memberMobile}
     </select>
+
+    <!-- 비밀번호 찾기  -->
+    <select id="memberPwdSearch" parameterType="String" resultType="member">
+        select * from member_info where memberName = #{memberName} and memberMobile = #{memberMobile} and memberId = #{memberId}
+    </select>
+
+    <update id="passwordUpdate" parameterType="member">
+        update member_info set memberPassword = #{memberPassword}
+        where memberName = #{memberName} and memberMobile = #{memberMobile} and memberId = #{memberId}
+    </update>
+
+    <!--마이페이지 - 비밀번호 변경-->
+<!--    <select id="checkPwd" resultType="String">-->
+<!--        select * from member_info where memberId = #{memberId}-->
+<!--    </select>-->
+    
+    <update id="selfPwdUpdate" parameterType="member" >
+        update member_info set memberPassword = #{memberPassword} where memberId = #{memberId}
+    </update>
+    
 </mapper>

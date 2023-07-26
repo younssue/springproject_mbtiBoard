@@ -1,8 +1,6 @@
 package com.mbtiBoard.member.service;
 
-import com.mbtiBoard.admin.dto.AdminPageDTO;
 import com.mbtiBoard.admin.dto.MemberPageDTO;
-import com.mbtiBoard.board.dto.BoardDTO;
 import com.mbtiBoard.member.dto.MemberDTO;
 import com.mbtiBoard.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +24,7 @@ public class MemberService {
     public boolean login(MemberDTO memberDTO) {
         MemberDTO loginMember = memberRepository.login(memberDTO);
         if(loginMember != null){
+
             return true;
         }else {
             return false;
@@ -134,5 +133,48 @@ public class MemberService {
         return memberRepository.memberIdSearch(memberDTO);
     }
 
+
+    //비밀번호 찾기(랜덤비밀번호생성)
+    public MemberDTO memberPwdSearch(MemberDTO memberDTO) {
+        return memberRepository.memberPwdSearch(memberDTO);
+    }
+
+    public boolean passwordUpdate(MemberDTO memberDTO) {
+        int result = memberRepository.passwordUpdate(memberDTO);
+        if(result>0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    //마이페이지- 비밀번호 변경
+//    public String checkPwd(String memberId){
+//        return memberRepository.checkPwd(memberId);
+//    }
+
+    public boolean selfPwdUpdate(MemberDTO memberDTO){
+        int result = memberRepository.selfPwdUpdate(memberDTO);
+        System.out.println("Service changePwd memberDTO = " + memberDTO);
+        System.out.println("Service changePwd result = " + result);
+        if(result>0){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+
+//    public boolean update(MemberDTO memberDTO) {
+//        int result = memberRepository.update(memberDTO);
+//        System.out.println("Service memberDTO = " + memberDTO);
+//        System.out.println("Service result = " + result);
+//        if(result>0){
+//            return true;
+//        }else {
+//            return false;
+//        }
 
 }

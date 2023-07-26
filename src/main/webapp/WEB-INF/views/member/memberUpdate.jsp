@@ -59,7 +59,7 @@
         </select>
     </div>
     <div class="form-row">
-        <input type="submit" value="수정" class="submit-button">
+        <input type="submit" value="수정" onclick="update()" class="submit-button">
     </div>
 </form>
 
@@ -73,6 +73,8 @@
             document.updateForm.submit();
         } else {
             alert("비밀번호가 일치하지 않습니다!");
+            document.getElementById("memberPassword").focus();
+            return false;
         }
     }
 </script>

@@ -8,9 +8,13 @@ import com.mbtiBoard.board.service.CommentService;
 import com.mbtiBoard.member.dto.MemberDTO;
 import com.mbtiBoard.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -45,7 +49,8 @@ public class MemberController {
 
     //로그인
     @GetMapping("/login")
-    public String loginForm() {
+    public String loginForm(Model model) {
+        model.addAttribute("member", new MemberDTO());
         return "member/login";
     }
 
@@ -92,10 +97,29 @@ public class MemberController {
     }
 
     //회원 수정 처리
+//    @PostMapping("/update")
+//    public String update(@ModelAttribute MemberDTO memberDTO) {
+//        boolean result = memberService.update(memberDTO);
+//        System.out.println("Controller memberDTO = " + memberDTO);
+//        if (result) {
+//            return "redirect:/member?id=" + memberDTO.getMemberId();
+//        } else {
+//            return "mainIndex";
+//        }
+//    }
+
     @PostMapping("/update")
-    public String update(@ModelAttribute MemberDTO memberDTO) {
+    public String update(HttpSession session,@ModelAttribute MemberDTO memberDTO, @RequestParam("memberPassword") String memberPassword) {
+        String loginId = (String) session.getAttribute("loginId");
+        MemberDTO currentMember = memberService.findByMemberId(loginId);
+
+        // 입력한 비밀번호와 데이터베이스의 비밀번호가 일치하지 않는 경우
+        if (!memberPassword.equals(currentMember.getMemberPassword())) {
+            return "redirect:/member/update"; // 비밀번호가 일치하지 않으므로 수정 페이지로 다시 이동
+        }
+
+        // 회원 정보를 수정하고 결과에 따라 이동할 페이지를 결정
         boolean result = memberService.update(memberDTO);
-        System.out.println("Controller memberDTO = " + memberDTO);
         if (result) {
             return "redirect:/member?id=" + memberDTO.getMemberId();
         } else {
@@ -174,9 +198,10 @@ public class MemberController {
     //아이디 찾기
     @GetMapping("/searchId")
     public String searchId(){
-
         return "member/searchId";
-    };
+    }
+
+
 
     @PostMapping("/searchId_result")
     public String searchId_result(Model model,
@@ -197,13 +222,99 @@ public class MemberController {
             model.addAttribute("msg","오류가 발생되었습니다");
         }
         return "member/searchId_result";
-    };
+    }
 
-    //비밀번호 찾기
-    @GetMapping("/searchPw")
+    //비밀번호 찾기(랜덤비밀번호생성)
+    @GetMapping("/searchPwd")
     public String searchPw(){
 
-        return "member/searchPw";
-    };
+        return "member/searchPwd";
+    }
+
+    @PostMapping("/searchPwd_result")
+    public String searchPw_result(Model model,
+                                  @RequestParam(required = true, value = "memberName")String memberName,
+                                  @RequestParam(required = true, value = "memberMobile")String memberMobile,
+                                  @RequestParam(required = true, value = "memberId")String memberId,
+                                  MemberDTO memberDTO
+
+    ){
+        try {
+            memberDTO.setMemberId(memberId);
+            memberDTO.setMemberMobile(memberMobile);
+            memberDTO.setMemberName(memberName);
+
+            MemberDTO memberSearch = memberService.memberPwdSearch(memberDTO);
+
+            if(memberSearch == null){
+                model.addAttribute("msg","가입된 정보가 잘못되었습니다. 다시 입력해주세요");
+                return "member/searchPwd";
+            }
+
+
+            //RandomStringUtils의 randomAlphanumeric메소드를 호출하면 알파벳(대소문자)+숫자 랜덤 값을 얻을 수 있다
+            String newPwd = RandomStringUtils.randomAlphanumeric(10);
+            memberDTO.setMemberPassword(newPwd);
+            boolean result = memberService.passwordUpdate(memberDTO);
+
+            if(result){
+                model.addAttribute("newPwd", newPwd);
+            }
+
+
+        }catch (Exception e){
+            System.out.println(e.toString());
+            model.addAttribute("msg","오류가 발생되었습니다");
+        }
+        return "member/searchPwd_result";
+    }
+
+
+
+
+
+    //비밀번호 변경
+    @GetMapping("/changePwd")
+    public String changePwdForm(HttpSession session, Model model){
+        String loginId = (String) session.getAttribute("loginId");
+        MemberDTO memberDTO = memberService.findByMemberId(loginId);
+        model.addAttribute("member", memberDTO);
+        return "member/changePwd";
+    }
+
+
+    @PostMapping("/changePwd")
+    public String checkPwd(HttpSession session,@ModelAttribute MemberDTO memberDTO,  RedirectAttributes rttr,
+                           @RequestParam(required = true, value = "memberPassword") String memberPassword,
+                           @RequestParam(required = true, value = "newMemberPwd") String newMemberPwd
+    ) {
+        String loginId = (String) session.getAttribute("loginId");
+        MemberDTO currentMember = memberService.findByMemberId(loginId);
+
+        // 입력한 비밀번호와 데이터베이스의 비밀번호가 일치하지 않는 경우
+        if (!memberPassword.equals(currentMember.getMemberPassword())) {
+            rttr.addFlashAttribute("msg", "현재 비밀번호와 일치하지 않습니다. 다시 변경해주세요");
+            return "redirect:/member/changePwd"; // 비밀번호가 일치하지 않으므로 비밀번호 변경 페이지로 다시 이동
+
+        } else {
+            // newMemberPwd 필드를 사용하여 회원의 새로운 비밀번호 설정
+            currentMember.setMemberPassword(memberDTO.getNewMemberPwd());
+            System.out.println("memberDTO.getNewMemberPwd()"+memberDTO.getNewMemberPwd());
+            // 회원 정보를 수정하고 결과에 따라 이동할 페이지를 결정
+            boolean result = memberService.selfPwdUpdate(currentMember);
+            if (result) {
+                System.out.println("currentMember="+currentMember);
+                rttr.addFlashAttribute("msg", "비밀번호변경이 완료 되었습니다. 다시 로그인해주세요");
+                session.invalidate();
+                return "redirect:/member/login";
+            } else {
+                rttr.addFlashAttribute("msg", "비밀번호변경이 실패 하였습니다, 다시 변경해주세요");
+                return "/member/changePwd";
+            }
+        }
+
+
+    }
+
 }
 
