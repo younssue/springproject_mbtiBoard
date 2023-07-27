@@ -70,6 +70,7 @@
         const passwordDB = '${member.memberPassword}';
         const password = document.getElementById("memberPassword").value;
         if (passwordDB == password) {
+            alert("회원정보가 수정되었습니다. ");
             document.updateForm.submit();
         } else {
             alert("비밀번호가 일치하지 않습니다!");

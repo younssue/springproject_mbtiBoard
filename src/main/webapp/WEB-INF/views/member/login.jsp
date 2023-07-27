@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="/member/login" method="post">
+    <form action="/member/login" id="loginForm" name="loginForm" method="post">
         <h1>LOGIN</h1>
         <input type="text" name="memberId" placeholder="아이디">
         <input type="password" name="memberPassword" placeholder="비밀번호">
@@ -18,7 +18,7 @@
         <div class="buttons">
             <button type="button" class="signIn" onclick="signIn()" > 회원가입 </button>
             <button type="button" class="search_id" onclick="searchId()" > 아이디 찾기 </button>
-            <button type="button" class="search_pw" onclick="searchPw()" > 비밀번호 찾기 </button>
+            <button type="button" class="search_pwd" onclick="searchPwd()" > 비밀번호 찾기 </button>
         </div>
     </form>
 </div>
@@ -32,8 +32,27 @@
         location.href = "/member/searchId";
     }
 
-    const searchPw = () =>{
-        location.href = "/member/searchPw";
+    const searchPwd = () =>{
+        location.href = "/member/searchPwd";
     }
+
+
+
+
+
+
+    <%--$(document).ready(function() {--%>
+    <%--    const msg = "${msg}";--%>
+    <%--    if(msg != ""){--%>
+    <%--        alert(msg);--%>
+    <%--    }--%>
+    <%--});--%>
+
+
+    <%--function login() {--%>
+    <%--    alert("${msg}");--%>
+    <%--}--%>
+
+
 </script>
 </html>

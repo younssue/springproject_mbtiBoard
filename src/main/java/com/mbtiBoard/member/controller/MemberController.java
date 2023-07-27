@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -55,23 +56,28 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute MemberDTO memberDTO,
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpServletRequest request,
                         HttpSession session) {
         boolean loginResult = memberService.login(memberDTO);
         if (loginResult) {
 
             session.setAttribute("loginId", memberDTO.getMemberId());
-            if("admin".equals(memberDTO.getMemberId()) && memberDTO.getMemberPassword().equals("1234")){
-                //관리자 계정-> 관리자 페이지로 이동
+                if("admin".equals(memberDTO.getMemberId()) && memberDTO.getMemberPassword().equals("1234")){
+                    //관리자 계정-> 관리자 페이지로 이동
 
-                return "redirect:/admin/";
+                    return "redirect:/admin/";
 
-            }else {
-
-                return "member/myPage";
-            }
+                }else {
+                    request.setAttribute("msg","😊로그인이 되었습니다. mbtiBoard를 즐겁게 이용해주세요");
+                    request.setAttribute("url","/member/myPage");
+                   // return "member/myPage";
+                    return "alert";
+                }
         } else {
-            return "member/login";
+            request.setAttribute("msg","😭로그인이 실패하였습니다. 아이디와 비밀번호를 다시 확인해주세요");
+            request.setAttribute("url","/member/login");
+
+            return "alert";
         }
     }
 
@@ -115,6 +121,7 @@ public class MemberController {
 
         // 입력한 비밀번호와 데이터베이스의 비밀번호가 일치하지 않는 경우
         if (!memberPassword.equals(currentMember.getMemberPassword())) {
+
             return "redirect:/member/update"; // 비밀번호가 일치하지 않으므로 수정 페이지로 다시 이동
         }
 
